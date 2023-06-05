@@ -5,7 +5,7 @@
     padding: 13rem 7rem 9rem 8rem;
     display: flex;  
     justify-content: space-between;
-    background-color: #ddc36c;
+    background-color: var(--color-variant);
 }
 
 .leftH{

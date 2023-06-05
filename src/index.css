@@ -22,7 +22,7 @@ html {
 :root {
   --color-primary: #1c4c7a;
   --color-primary-light:#286095;
-  --color-variant: #ddc36c;
+  --color-variant: #eeeeee;
   --color-variant-2: #dcdcdc;
   --gradient: linear-gradient(
     180deg,
