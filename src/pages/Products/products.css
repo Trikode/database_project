@@ -32,7 +32,24 @@
 /* -------Product Sidebar--------- */
 
 .productSidebar{
-    width: 20vw;
-    height: 50vh;
-    background-color: #eeeeee;
+    width: 15vw;
+    height: 90vh;
+    background-color:chartreuse;
+    padding: 1rem;
+}
+
+.divisiorio{
+   height: 1px;
+   width: 100%;
+   background-color: black;
+   margin: 1rem 0;
+}
+
+.containerCardProductMenu{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
 }
