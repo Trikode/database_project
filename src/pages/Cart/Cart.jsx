@@ -8,6 +8,10 @@ const Cart = () => {
   return (
     <>
       <Navbar />
+      <div className="cartContainer">
+        <div className="leftPartCart"></div>
+        <div className="rightPartCart"></div>
+      </div>
       <TopReminder />
       <Footer />
     </>
