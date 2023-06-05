@@ -33,7 +33,6 @@
 
 .productSidebar {
     width: 15vw;
-    height: 90vh;
     background-color: white;
     padding: 1rem;
 }
@@ -56,6 +55,14 @@
 
 .sidebarCard1 {
     display: block;
+}
+
+.sidebarCard1 p{
+   cursor: pointer;
+}
+
+.sidebarCard1.active{
+    display: none;
 }
 
 
@@ -101,3 +108,74 @@
     text-align: center;
     line-height: 18px;
 }
+
+.sidebarCard4 {
+    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 1rem;
+    row-gap: 1rem;
+}
+
+.sidebarCard4.active{
+    display: none;
+}
+
+.sideColor{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.sidebar33{
+    width: 33%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.sidebar33 p{
+    font-size: 0.7rem;
+}
+
+.sidebarPurple{
+    background-color: purple;
+}
+.sidebarBlack{
+    background-color: black;
+}
+.sidebarRed{
+    background-color: red;
+}
+.sidebarOrange{
+    background-color: orangered;
+}
+.sidebarBlue{
+    background-color: blue;
+}
+.sidebarWhite{
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+}
+.sidebarBrown{
+    background-color: #825D41;
+}
+.sidebarGreen{
+    background-color: green;
+}
+.sidebarYellow{
+    background-color: yellow;
+}
+.sidebarGrey{
+    background-color: grey;
+}
+.sidebarPink{
+    background-color: pink;
+}
+.sidebarMultiColor{
+    background-image: url("../../assets/multi-color.png");
+    background-size: cover;
+}
+

@@ -1,25 +1,43 @@
 import React from "react";
+import { useState } from "react";
 import "../../pages/Products/products.css";
 import { IoIosArrowDown } from "react-icons/io"
+import { IoIosArrowUp } from "react-icons/io"
 
 const ProductSidebar = () => {
+    const [toggle1,setToggle1] = useState(false);
+    const [toggle2,setToggle2] = useState(false);
+    const [toggle3,setToggle3] = useState(false);
+    const [toggle4,setToggle4] = useState(false);
+    function handleClick1(){
+        setToggle1(!toggle1)
+    }
+    function handleClick2(){
+        setToggle2(!toggle2)
+    }
+    function handleClick3(){
+        setToggle3(!toggle3)
+    }
+    function handleClick4(){
+        setToggle4(!toggle4)
+    }
     return (
         <section className="productSidebar">
-            <div className="containerCardProductMenu">
+            <div className="containerCardProductMenu"onClick={handleClick1}>
                 <p>Gender</p>
-                <IoIosArrowDown />
+                {toggle1?<IoIosArrowDown />:<IoIosArrowUp/>}
             </div>
-            <div className="sidebarCard1">
+            <div className={`sidebarCard1 ${toggle1?"active":""}`}>
                 <p>Man</p>
                 <p>Woman</p>
                 <p>Kids</p>
             </div>
             <div className="divisiorio"></div>
-            <div className="containerCardProductMenu">
+            <div className="containerCardProductMenu"onClick={handleClick2}>
                 <p>Types</p>
-                <IoIosArrowDown />
+                {toggle2?<IoIosArrowDown />:<IoIosArrowUp/>}
             </div>
-            <div className="sidebarCard2">
+            <div className={`sidebarCard1 ${toggle2?"active":""}`}>
                 <p>T-shirt</p>
                 <p>Polo</p>
                 <p>Shirt</p>
@@ -27,11 +45,11 @@ const ProductSidebar = () => {
                 <p>Tank-top</p>
             </div>
             <div className="divisiorio"></div>
-            <div className="containerCardProductMenu">
+            <div className="containerCardProductMenu"onClick={handleClick3}>
                 <p>Shop by Price</p>
-                <IoIosArrowDown />
+                {toggle3?<IoIosArrowDown />:<IoIosArrowUp/>}
             </div>
-            <div className="sidebarCard3">
+            <div className={`sidebarCard1 ${toggle3?"active":""}`}>
                 <div class="checkbox-container">
                     <input type="checkbox" id="checkbox1" className="checkedboxSidebar"/>
                     <label for="checkbox1" class="checkbox-label">$5 - $10</label>
@@ -54,6 +72,60 @@ const ProductSidebar = () => {
 
             </div>
             <div className="divisiorio"></div>
+            <div className="containerCardProductMenu"onClick={handleClick4}>
+                <p>Color</p>
+                {toggle4?<IoIosArrowDown />:<IoIosArrowUp/>}
+            </div>
+            <div className={`sidebarCard4 ${toggle4?"active":""}`}>
+                <div className="sidebar33">
+                <div className="sideColor sidebarPurple"></div>
+                <p>Purple</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarBlack"></div>
+                <p>Black</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarRed"></div>
+                <p>Red</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarOrange"></div>
+                <p>Orange</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarBlue"></div>
+                <p>Blue</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarWhite"></div>
+                <p>White</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarBrown"></div>
+                <p>Brown</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarGreen"></div>
+                <p>Green</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarYellow"></div>
+                <p>Yellow</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarGrey"></div>
+                <p>Grey</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarPink"></div>
+                <p>Pink</p>
+                </div>
+                <div className="sidebar33">
+                <div className="sideColor sidebarMultiColor"></div>
+                <p>Multi-Color</p>
+                </div>
+            </div>
         </section>
     )
 }
