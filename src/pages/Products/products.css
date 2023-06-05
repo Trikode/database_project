@@ -1,0 +1,38 @@
+.containerProduct{
+    padding-top: 5rem;
+}
+
+/*--------Product card--------*/
+.productCard img{
+    width: 18rem;
+}
+
+.priceProduct{
+    margin-top: 0.2rem;
+}
+
+
+.containerColor{
+    display: flex;
+    margin-top: 0.5rem;
+    column-gap: 0.2rem;
+}
+
+.btnColorProduct{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 3px solid rgba(0, 0, 0, 0.763);
+}
+
+.nameProduct{
+    font-size: 1.2rem;
+}
+
+/* -------Product Sidebar--------- */
+
+.productSidebar{
+    width: 20vw;
+    height: 50vh;
+    background-color: #eeeeee;
+}
