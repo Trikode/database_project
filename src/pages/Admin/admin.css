@@ -14,7 +14,7 @@
       font-size: 1rem;
     }
     input{
-        cursor: text !important;
+        cursor: text ;
     }
     /*----------Main page-------*/
     .adminMain{
