@@ -39,8 +39,6 @@ app.post('/api/register', (req, res) => {
       res.json({ message: 'User registered successfully' });
     }
   });
-  // Respond with a success message or error message
-  res.status(200).json({ message: 'User registered successfully' });
 });
 
 app.listen(port, () => {

@@ -42,7 +42,7 @@ function RegistrationForm() {
           },
           body: JSON.stringify({ email, password }),
         });
-
+        console.log(email,password)
         if (response.ok) {
           // User registration successful
           console.log('User registered successfully');
