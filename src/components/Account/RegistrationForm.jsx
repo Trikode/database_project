@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { RiEyeLine, RiEyeCloseLine } from 'react-icons/ri';
 import "../../pages/Account/account.css"
+import { useNavigate } from 'react-router-dom';
 
 function RegistrationForm() {
   const [email, setEmail] = useState('');
@@ -9,6 +10,17 @@ function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [passwordError, setPasswordError] = useState('');
+  const [users, setUsers] = useState([]);
+    
+
+    useEffect(() => {
+      fetch('http://localhost:3308/api/users')
+        .then((response) =>response.json())
+        .then((data) => setUsers(data))
+        .catch((error) => console.error('Error:', error));
+    }, []);  
+    
+
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -27,12 +39,16 @@ function RegistrationForm() {
   const handleTogglePasswordVisibility2 = () => {
     setShowPassword2(!showPassword2);
   };
-
+  let redirectToPage=  useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== passwordCheck) {
       setPasswordError('Passwords do not match. Please try again');
-    } else {
+    }else if (users.some((user)=>(user.email)=== email) ){
+      setPasswordError('Email already registred')
+      setPassword('');
+      setPasswordCheck('');
+    }else{
       setPasswordError('');
       try {
         const response = await fetch('http://localhost:3308/api/register', {
@@ -44,18 +60,21 @@ function RegistrationForm() {
         });
         console.log(email,password)
         if (response.ok) {
-          // User registration successful
           console.log('User registered successfully');
+          setPasswordError('User registered successfully');
           setEmail('');
           setPassword('');
           setPasswordCheck('');
+          redirectToPage("/account")
         } else {
-          // Error occurred during registration
           const data = await response.json();
           console.error('Error registering user:', data.error);
+          setPasswordError('Error registering user');
+
         }
       } catch (error) {
         console.error('Error registering user:', error);
+        setPasswordError('Error registering user');
       }
     }
   };
@@ -82,6 +101,8 @@ function RegistrationForm() {
                 <input
                 type={showPassword ? 'text' : 'password'}
                 id="password"
+                autoComplete="new-password"
+                name="password"
                 placeholder="Enter your password"
                 value={password}
                 onChange={handlePasswordChange}
