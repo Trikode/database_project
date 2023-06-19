@@ -5,41 +5,44 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem
+  gap: 2rem;
+  
 }
 
- .Alabels{
+.Alabels{
   display: flex;
   justify-content: center;
   gap: 1.6rem;
   padding: 0.5rem;
- }
- .Alabels button{
+}
+.Alabels button{
   border: none;
   background-color: transparent;
   cursor: pointer;
   /* transition:  ease-in-out 0.1s; */
- }
+}
 
- .loginL.active,.regL.active{
+.loginL.active,.regL.active{
   border-bottom: 3px solid orangered;
   border-radius: 1px;
   cursor:default;
- }
- 
- .AccountForms{
-  height: 17rem;
+}
 
+.AccountForms{
+  height: 17rem;
+  
+}
+.Acontainer {
+  z-index: 2;
+  position: relative;
+  width: 30rem;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: aliceblue;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
  }
-/*--------Login Form-------*/
-  .Acontainer {
-    width: 30rem;
-    margin: 0 auto;
-    padding: 40px;
-    background-color: aliceblue;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
   
   h1 {
     text-align: center;
@@ -57,8 +60,10 @@
   
   label {
     font-weight: bold;
-    display: block;
+    /* display: block; */
   }
+  
+  /*--------Login Form----Registration Form--------*/
   
   .form-group input {
     width: 100%;
@@ -73,7 +78,7 @@
     align-items:center;
     padding-bottom: 0.5rem;
   }
-  .toggle-password{
+  .password-input .toggle-password{
     border: none;
     background-color: transparent;
     position: absolute;
@@ -82,7 +87,7 @@
     right: 1rem;
     cursor: pointer;
   }
-
+  
   .pswForget{
     text-decoration: underline;
     color: rgb(83, 83, 173);
@@ -94,7 +99,7 @@
   }
   
   .loginBtn {
-    display: block;
+    /* display: block; */
     width: 100%;
     padding: 10px;
     background-color:var(--color-primary);
@@ -109,7 +114,45 @@
     background-color: var(--color-primary-light);
   }
   
-  /*------Registration Form------*/
+
   .error-message{
     color: red;
+  }
+
+  /*------Reset Password------*/
+
+  .resetPswContainer{
+    position: absolute;
+    background-color: aliceblue;
+    padding: 2rem;
+    left: 0rem;
+    top: 50%;
+    height:12rem;
+    width: 15rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all ease-in 0.4s;
+    opacity: 0;
+    z-index: -1;
+    
+    
+    
+  }
+
+  .resetPswContainer.active{
+    left: -16rem;
+    opacity: 1;
+    z-index: 1;
+    
+    
+  }
+
+  .resetPswContainer input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    
   }
