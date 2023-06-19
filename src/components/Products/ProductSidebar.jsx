@@ -30,7 +30,7 @@ const ProductSidebar = () => {
             <div className={`sidebarCard1 ${toggle1?"active":""}`}>
                 <p>Man</p>
                 <p>Woman</p>
-                <p>Kids</p>
+                <p>Kid</p>
             </div>
             <div className="divisiorio"></div>
             <div className="containerCardProductMenu"onClick={handleClick2}>
