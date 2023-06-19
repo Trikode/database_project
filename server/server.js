@@ -26,28 +26,63 @@ app.get('/api/users', (req, res) => {
   });
 });
 
+app.get('/api/products', (req, res) => {
+  db.query(`
+    SELECT p.*, pt.type AS type_name, s.size AS size_name, c.color AS color_name, i.image_url AS image_url, g.size AS genre_name
+    FROM products p
+    JOIN product_types pt ON p.id_type = pt.id_type
+    JOIN sizes s ON p.size = s.id_size
+    JOIN colors c ON p.color = c.id_color
+    JOIN images i ON p.id_image = i.id_image
+    JOIN genres g ON p.genre = g.id_genre
+  `, (error, results) => {
+    if (error) {
+      console.error('Error executing MySQL query:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      const formattedResults = results.map((row) => ({
+        id_product: row.id_product,
+        type: row.type_name,
+        name: row.name,
+        size: row.size_name,
+        color: row.color_name,
+        genre: row.genre_name,
+        quantity: row.quantity,
+        price: row.price,
+        image: row.image_url,
+      }));
+      res.json(formattedResults);
+    }
+  });
+});
 
-//POST
+
+
+
+// POST
 app.post('/api/register', (req, res) => {
-  const { email, password } = req.body;
+  const { f_name, l_name, email, password } = req.body;
   bcrypt.hash(password, 10, function(err, hash) {
-     
     if (err) {
       console.error('Error hashing password:', err);
       res.status(500).json({ error: 'Internal Server Error' });
     } else {
-
-      db.query('INSERT INTO users (email, password) VALUES (?, ?)', [email, hash], (error, results) => {
-        if (error) {
-          console.error('Error executing MySQL query:', error);
-          res.status(500).json({ error: 'Internal Server Error' });
-        } else {
-          res.json({ message: 'User registered successfully' });
+      db.query(
+        'INSERT INTO users (f_name, l_name, email, password, role_id) VALUES (?, ?, ?, ?, 2)',
+        [f_name, l_name, email, hash],
+        (error, results) => {
+          if (error) {
+            console.error('Error executing MySQL query:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+          } else {
+            res.json({ message: 'User registered successfully' });
+          }
         }
-      });
+      );
     }
   });
 });
+
 
 // PUT
 app.put('/api/reset-password', (req, res) => {
