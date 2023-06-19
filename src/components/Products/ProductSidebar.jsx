@@ -50,22 +50,22 @@ const ProductSidebar = () => {
                 {toggle3?<IoIosArrowDown />:<IoIosArrowUp/>}
             </div>
             <div className={`sidebarCard1 ${toggle3?"active":""}`}>
-                <div class="checkbox-container">
+                <div className="checkbox-container">
                     <input type="checkbox" id="checkbox1" className="checkedboxSidebar"/>
                     <label for="checkbox1" class="checkbox-label">$5 - $10</label>
                 </div>
 
-                <div class="checkbox-container">
+                <div className="checkbox-container">
                     <input type="checkbox" id="checkbox2" className="checkedboxSidebar"/>
                     <label for="checkbox2" class="checkbox-label">$10 - $20</label>
                 </div>
 
-                <div class="checkbox-container">
+                <div className="checkbox-container">
                     <input type="checkbox" id="checkbox3" className="checkedboxSidebar"/>
                     <label for="checkbox3" class="checkbox-label">$20 - $35</label>
                 </div>
 
-                <div class="checkbox-container">
+                <div className="checkbox-container">
                     <input type="checkbox" id="checkbox4" className="checkedboxSidebar"/>
                     <label for="checkbox4" class="checkbox-label">$35 - $100</label>
                 </div>

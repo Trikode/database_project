@@ -24,8 +24,10 @@
     cursor: pointer;
 }
 
-
-
 .shopRight{
     width: 100%;
+}
+
+.shopMisure{
+    margin-top: 2rem;
 }

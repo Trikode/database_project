@@ -17,7 +17,8 @@ const ShopCard = () => {
                     <hr />
                     <p className="shopColorTxt">Colore:</p>
                     <div className="shopColor"></div>
-                    <p className=""></p>
+                    <p className="shopMisure">Misure:</p>
+                    <div></div>
                 </div>
             </section>
         </>
