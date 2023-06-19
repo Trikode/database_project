@@ -4,6 +4,8 @@ import "../../pages/Account/account.css"
 import { useNavigate } from 'react-router-dom';
 
 function RegistrationForm() {
+  const [f_name, setF_name] = useState('');
+  const [l_name, setL_name] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
@@ -22,6 +24,12 @@ function RegistrationForm() {
     
 
 
+  const handleF_nameChange = (e) => {
+    setF_name(e.target.value);
+  };
+  const handleL_nameChange = (e) => {
+    setL_name(e.target.value);
+  };
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -56,9 +64,9 @@ function RegistrationForm() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ f_name, l_name, email, password }),
         });
-        console.log(email,password)
+        console.log(f_name,l_name,email,password)
         if (response.ok) {
           console.log('User registered successfully');
           setPasswordError('User registered successfully');
@@ -84,6 +92,26 @@ function RegistrationForm() {
         
         
         <form onSubmit={handleSubmit}>
+        <div className="form-group">
+            <label htmlFor="f_name"></label>
+            <input 
+              type="text" 
+              id="f_name"
+              placeholder='Enter your name'
+              value={f_name}
+              onChange={handleF_nameChange}
+              required />
+        </div>
+        <div className="form-group">
+            <label htmlFor="l_name"></label>
+            <input 
+              type="text" 
+              id="l_name"
+              placeholder='Enter your surname'
+              value={l_name}
+              onChange={handleL_nameChange}
+              required />
+          </div>
             <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -119,7 +147,7 @@ function RegistrationForm() {
             <div className="password-input">
                 <input
                 type={showPassword2 ? 'text' : 'password'}
-                id="password"
+                id="password2"
                 placeholder="Enter your password again"
                 value={passwordCheck}
                 onChange={handlePasswordCheckChange}

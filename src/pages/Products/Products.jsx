@@ -1,4 +1,5 @@
 import React from "react";
+import { useState,useEffect } from "react";
 
 //sections
 import Navbar from "../../components/Navbar/Navbar";
@@ -9,7 +10,15 @@ import ProductSidebar from "../../components/Products/ProductSidebar";
 
 
 const Products = () => {
- 
+
+  const [products,setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3308/api/products')
+      .then((response) =>response.json())
+      .then((data) => setProducts(data))
+      .catch((error) => console.error('Error:', error));
+  }, []);  
 
   return (
     <>
@@ -20,7 +29,10 @@ const Products = () => {
         <ProductSidebar/>
         </div>
         <div className="container-productCard">
-        <ProductCard />
+        {products.map((product,pidx) => {
+          return <ProductCard name={product.name} type={product.type} price={product.price} img={product.image} />
+        })}
+        
         </div>
       </div>
       <Footer />
