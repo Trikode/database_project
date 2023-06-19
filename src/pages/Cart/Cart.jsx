@@ -8,7 +8,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLiveItems } from "../../App";
 import TopReminder from "../../components/TopReminder/TopReminder";
-import PaymentConfirmation from "../../components/Cart/PaymentConfirmation";
 
 const Cart = () => {
   //Get Items from localStorages.
@@ -117,7 +116,6 @@ const Cart = () => {
   }
   //getting and checking the delivery informations
   function deliveryCheck() {
-    <PaymentConfirmation/>;
     const phone = document.querySelector("#telInput").value;
     const name = document.querySelector("#nameInput").value;
     const surname = document.querySelector("#surnameInput").value;
@@ -254,7 +252,6 @@ const Cart = () => {
             Left Part
 
             */}
-            <PaymentConfirmation/>;
             <div>
               <section className="articles bubble">
                 <h2>Articles</h2>
