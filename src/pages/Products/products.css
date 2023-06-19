@@ -7,6 +7,10 @@
     width: 18rem;
 }
 
+.productCard{
+    cursor: pointer;
+}
+
 .priceProduct {
     margin-top: 0.2rem;
 }
@@ -138,56 +142,69 @@
 
 .sidebar33 p {
     font-size: 0.7rem;
+    cursor: pointer;
 }
 
 .sidebarPurple {
     background-color: purple;
+    cursor: pointer;
 }
 
 .sidebarBlack {
     background-color: black;
+    cursor: pointer;
 }
 
 .sidebarRed {
     background-color: red;
+    cursor: pointer;
 }
 
 .sidebarOrange {
     background-color: orangered;
+    cursor: pointer;
 }
 
 .sidebarBlue {
     background-color: blue;
+    cursor: pointer;
 }
 
 .sidebarWhite {
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.18);
+    cursor: pointer;
 }
 
 .sidebarBrown {
     background-color: #825D41;
+    cursor: pointer;
 }
 
 .sidebarGreen {
     background-color: green;
+    cursor: pointer;
 }
 
 .sidebarYellow {
     background-color: yellow;
+    cursor: pointer;
 }
 
 .sidebarGrey {
     background-color: grey;
+    cursor: pointer;
 }
 
 .sidebarPink {
     background-color: pink;
+    cursor: pointer;
 }
 
 .sidebarMultiColor {
     background-image: url("../../assets/multi-color.png");
     background-size: cover;
+    cursor: pointer;
 }
 
 .containerProduct {
