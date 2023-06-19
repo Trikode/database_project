@@ -8,6 +8,7 @@ import Products from "./pages/Products/Products";
 import Cart from "./pages/Cart/Cart";
 import Admin from "./pages/Admin/Admin";
 import Account from "./pages/Account/Account"
+import Shop from "./pages/Shop/shop";
 
 const itemsContext = createContext();
 const defaultLiveItems = JSON.parse(localStorage.getItem("cartItems")) || [];
@@ -41,6 +42,7 @@ const App = () => {
         {/* <Route path="/favourites" element={<Favourites />} /> */}
         <Route path="/account" element={<Account />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/shop" element={<Shop />} />
       </Routes>
     </Provider>
   );

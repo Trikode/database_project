@@ -1,0 +1,31 @@
+.shopSection{
+    padding-top: 6rem;
+    padding-left: 10rem;
+    padding-right: 10rem;
+    display: flex;
+    column-gap: 3rem;
+}
+
+.shopContainerImg img{
+    width: 40rem;
+}
+
+.shopPrezzo{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.shopColor{
+    width: 35px;
+    height: 35px;
+    border: 2px solid rgba(0, 0, 0, 0.443);
+    border-radius: 50%;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+
+
+.shopRight{
+    width: 100%;
+}

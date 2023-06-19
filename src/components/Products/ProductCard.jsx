@@ -1,10 +1,16 @@
 import React from "react";
 import "../../pages/Products/products.css";
 import tShirt from "../../assets/t-shirt.jpg"
+import { useNavigate } from "react-router";
+
 
 const ProductCard = () => {
+    let redirectToPage =  useNavigate();
+    const handleClick =()=> {
+      redirectToPage("/shop");
+    }
     return (
-        <section className="productCard">
+        <section className="productCard" onClick={handleClick}>
             <img src={tShirt} alt="" />
             <p className="nameProduct">T-shirt verde</p>
             <p className="typeProduct">Man-Polo</p>

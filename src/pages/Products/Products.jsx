@@ -8,8 +8,9 @@ import ProductCard from "../../components/Products/ProductCard";
 import ProductSidebar from "../../components/Products/ProductSidebar";
 
 
-
 const Products = () => {
+ 
+
   return (
     <>
       <TopReminder />
@@ -19,15 +20,7 @@ const Products = () => {
         <ProductSidebar/>
         </div>
         <div className="container-productCard">
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
-        <ProductCard/>
+        <ProductCard />
         </div>
       </div>
       <Footer />
