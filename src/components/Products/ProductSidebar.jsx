@@ -32,7 +32,7 @@ const ProductSidebar = () => {
                 <p>Woman</p>
                 <p>Kid</p>
             </div>
-            <div className="divisiorio"></div>
+            <hr />
             <div className="containerCardProductMenu"onClick={handleClick2}>
                 <p>Types</p>
                 {toggle2?<IoIosArrowDown />:<IoIosArrowUp/>}
@@ -44,7 +44,7 @@ const ProductSidebar = () => {
                 <p>Hoodies</p>
                 <p>Tank-top</p>
             </div>
-            <div className="divisiorio"></div>
+            <hr />
             <div className="containerCardProductMenu"onClick={handleClick3}>
                 <p>Shop by Price</p>
                 {toggle3?<IoIosArrowDown />:<IoIosArrowUp/>}
@@ -71,7 +71,7 @@ const ProductSidebar = () => {
                 </div>
 
             </div>
-            <div className="divisiorio"></div>
+            <hr />
             <div className="containerCardProductMenu"onClick={handleClick4}>
                 <p>Color</p>
                 {toggle4?<IoIosArrowDown />:<IoIosArrowUp/>}
