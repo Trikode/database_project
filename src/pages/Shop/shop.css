@@ -78,3 +78,9 @@
     margin-top: 2rem;
     padding: 1rem;
 }
+
+.shopContainerColor{
+    display: flex;
+    flex-direction: row;
+    column-gap: 1rem;
+}
