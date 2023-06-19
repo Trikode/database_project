@@ -57,11 +57,11 @@
     display: block;
 }
 
-.sidebarCard1 p{
-   cursor: pointer;
+.sidebarCard1 p {
+    cursor: pointer;
 }
 
-.sidebarCard1.active{
+.sidebarCard1.active {
     display: none;
 }
 
@@ -69,7 +69,7 @@
 .checkbox-container {
     display: flex;
     align-items: center;
-    margin: 8px 0;  
+    margin: 8px 0;
 }
 
 .checkbox-label {
@@ -77,7 +77,7 @@
     cursor: pointer;
 }
 
-.checkedboxSidebar{
+.checkedboxSidebar {
     cursor: pointer;
 }
 
@@ -118,17 +118,17 @@
     row-gap: 1rem;
 }
 
-.sidebarCard4.active{
+.sidebarCard4.active {
     display: none;
 }
 
-.sideColor{
+.sideColor {
     width: 30px;
     height: 30px;
     border-radius: 50%;
 }
 
-.sidebar33{
+.sidebar33 {
     width: 33%;
     display: flex;
     align-items: center;
@@ -136,46 +136,71 @@
     flex-direction: column;
 }
 
-.sidebar33 p{
+.sidebar33 p {
     font-size: 0.7rem;
 }
 
-.sidebarPurple{
+.sidebarPurple {
     background-color: purple;
 }
-.sidebarBlack{
+
+.sidebarBlack {
     background-color: black;
 }
-.sidebarRed{
+
+.sidebarRed {
     background-color: red;
 }
-.sidebarOrange{
+
+.sidebarOrange {
     background-color: orangered;
 }
-.sidebarBlue{
+
+.sidebarBlue {
     background-color: blue;
 }
-.sidebarWhite{
+
+.sidebarWhite {
     background-color: white;
     border: 1px solid rgba(0, 0, 0, 0.18);
 }
-.sidebarBrown{
+
+.sidebarBrown {
     background-color: #825D41;
 }
-.sidebarGreen{
+
+.sidebarGreen {
     background-color: green;
 }
-.sidebarYellow{
+
+.sidebarYellow {
     background-color: yellow;
 }
-.sidebarGrey{
+
+.sidebarGrey {
     background-color: grey;
 }
-.sidebarPink{
+
+.sidebarPink {
     background-color: pink;
 }
-.sidebarMultiColor{
+
+.sidebarMultiColor {
     background-image: url("../../assets/multi-color.png");
     background-size: cover;
 }
 
+.containerProduct {
+    display: flex;
+}
+
+.container-productCard {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    justify-content: start;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 3rem;
+    column-gap: 2rem;
+}

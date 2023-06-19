@@ -12,8 +12,20 @@ const Products = () => {
       <TopReminder />
       <Navbar />
       <div className="containerProduct">
-      <ProductSidebar/>
-      {/* <ProductCard/> */}
+        <div>
+        <ProductSidebar/>
+        </div>
+        <div className="container-productCard">
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        <ProductCard/>
+        </div>
       </div>
       <Footer />
     </>
