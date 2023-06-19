@@ -1,4 +1,5 @@
 import React from "react";
+import {useState, useEffect } from "react";
 import "./navbar.css";
 import { BsSearch } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -9,7 +10,23 @@ import Logo from "../../assets/logo2.svg";
 import { useLiveItems } from "../../App";
 
 const Navbar = () => {
-  const { liveItems, cartModal, setCartModal} = useLiveItems();
+  const { isLogged,liveItems,setCartModal,currentUser} = useLiveItems();
+  const [users, setUsers] = useState([]);
+  const [displayName,setDisplayName] = useState("")
+
+  useEffect(() => {
+    fetch('http://localhost:3308/api/users')
+      .then((response) =>response.json())
+      .then((data) => setUsers(data))
+      .catch((error) => console.error('Error:', error));
+  }, []);  
+
+  useEffect(() => {
+    if (isLogged) {
+      const user = users.find((user) => user.email === currentUser);
+      setDisplayName(user?.f_name);
+    }
+  }, [currentUser, users, isLogged]);
 
   const linkStyle = {
     textDecoration: "none",
@@ -21,6 +38,7 @@ const Navbar = () => {
     justifyContent: "center",
     alignItems: "center",
   };
+  console.log(isLogged);
 
   return (
     <nav className="navbar">
@@ -48,7 +66,8 @@ const Navbar = () => {
             <BsSearch />
           </div>
         </div>
-        <div >
+        <div className="Naccount-container" >
+          <p>{isLogged ?`Ciao,${displayName}!`:""}</p>
           <Link to={"/account"}>
             <RiAccountCircleLine className="accountIcon"/>
           </Link>

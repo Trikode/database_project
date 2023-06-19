@@ -4,6 +4,7 @@ import "../../pages/Account/account.css"
 import { useNavigate } from "react-router-dom";
 import bcrypt from 'bcryptjs';
 import emailjs from 'emailjs-com';
+import { useLiveItems } from '../../App';
 
 
 
@@ -24,6 +25,8 @@ function LoginForm() {
   const [remainingTime, setRemainingTime] = useState(0);
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
+  
+  const {setIsLogged,setCurrentUser} = useLiveItems();
   
 
 
@@ -74,7 +77,6 @@ function LoginForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Find the user with the matching email
     const user = users.find((user) => user.email === email);
   
     if (!user) {
@@ -92,6 +94,8 @@ function LoginForm() {
   
       if (result) {
         console.log('Password match');
+        setIsLogged(true);
+        setCurrentUser(email)
         redirectToPage("/")
         setEmail('');
         setPassword('');
@@ -100,7 +104,7 @@ function LoginForm() {
         console.log('Password does not match');
         setPasswordError("The password is incorrect");
         setPassword('');
-       
+        
       }
     });
   };

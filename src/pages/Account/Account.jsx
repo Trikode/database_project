@@ -3,10 +3,13 @@ import { useState} from "react";
 import "./account.css"
 import LoginForm from "../../components/Account/LoginForm";
 import RegistrationForm from "../../components/Account/RegistrationForm";
+import Navbar from "../../components/Navbar/Navbar";
+import { useLiveItems } from "../../App";
 // import UserList from "../../components/Account/Testaccount";
 
 const Account = ()=>{
     const [isActive, setIsActive] = useState(true);
+    const {isLogged} = useLiveItems();
     // const [users, setUsers] = useState([]);
     
 
@@ -19,6 +22,16 @@ const Account = ()=>{
     // console.log(users)
 
     return(
+    <>
+    <Navbar/>
+    {isLogged?(
+    <div className="AccountContainer">
+        <div className="Acontainer"> 
+        
+            
+        </div>
+    </div>
+    ):(
     <div className="AccountContainer">
         <div className="Acontainer"> 
             <div className="Alabels">
@@ -40,8 +53,8 @@ const Account = ()=>{
         </div>
        
     </div>
-       
-   
+    )}
+   </>
     );
 };
 

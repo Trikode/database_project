@@ -9,7 +9,7 @@ const Hero = ()=>{
       <h1>THE RIGHT PLACE TO BE SEEN</h1>
         <h5>
           The right outfit that makes you feel comfortable with yourself. 
-          <h3>STAND OUT</h3> was started from this concept, then we matched 
+          <p>STAND OUT</p> was started from this concept, then we matched 
           it with eco-friendly and high quality materials.
         </h5>
       </div>

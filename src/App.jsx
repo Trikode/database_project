@@ -17,6 +17,8 @@ const Provider = ({ children }) => {
   const [liveItems, setLiveItems] = useState(defaultLiveItems.length);
   const [aBurger, setABurger] = useState(false);
   const [cartModal, setCartModal] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+  const [currentUser, setCurrentUser] = useState("");
  
   const exposed = {
     liveItems,
@@ -25,6 +27,10 @@ const Provider = ({ children }) => {
     setABurger,
     cartModal,
     setCartModal,
+    isLogged,
+    setIsLogged,
+    currentUser,
+    setCurrentUser
   };
   return (
     <itemsContext.Provider value={exposed}>{children}</itemsContext.Provider>
