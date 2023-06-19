@@ -19,6 +19,8 @@ const Provider = ({ children }) => {
   const [cartModal, setCartModal] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
+  const [currentProduct, setCurrentProduct]=useState("");
+  const [currentColour,setCurrentColour]=useState("");
  
   const exposed = {
     liveItems,
@@ -30,7 +32,11 @@ const Provider = ({ children }) => {
     isLogged,
     setIsLogged,
     currentUser,
-    setCurrentUser
+    setCurrentUser,
+    currentProduct,
+    setCurrentProduct,
+    currentColour,
+    setCurrentColour
   };
   return (
     <itemsContext.Provider value={exposed}>{children}</itemsContext.Provider>
