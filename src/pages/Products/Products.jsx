@@ -29,15 +29,19 @@ const Products = () => {
         <ProductSidebar/>
         </div>
         <div className="container-productCard">
-        {products.map((product,pidx) => {
-          return (
-            <div key={pidx}>
-              <ProductCard name={product.name} type={product.type} price={product.price} img={product.image} colour={product.color} /*idx={product.id_product}*//>
-            </div>
-           )
-         
+        {/* {products.filter((product, index) => {
+      return products.findIndex(p => p.name === product.name) === index;}).map((product, pidx) => (
+      <div key={pidx}>
+         <ProductCard name={product.name} type={product.type} price={product.price} img={product.image} colour={product.color} />
+      </div>
+    ))}; */}
+        {products.map((product, pidx, arr) => {
+        return arr.findIndex(p => p.name === product.name) === pidx && (
+          <div key={pidx}>
+            <ProductCard name={product.name} type={product.type} price={product.price} img={product.image} colour={product.color} />
+          </div>
+          );
         })};
-        
         </div>
       </div>
       <Footer />
