@@ -30,8 +30,13 @@ const Products = () => {
         </div>
         <div className="container-productCard">
         {products.map((product,pidx) => {
-          return <ProductCard name={product.name} type={product.type} price={product.price} img={product.image} />
-        })}
+          return (
+            <div key={pidx}>
+              <ProductCard name={product.name} type={product.type} price={product.price} img={product.image} colour={product.color} /*idx={product.id_product}*//>
+            </div>
+           )
+         
+        })};
         
         </div>
       </div>

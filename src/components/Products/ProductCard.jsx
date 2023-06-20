@@ -2,12 +2,17 @@ import React from "react";
 import "../../pages/Products/products.css";
 // import tShirt from "../../assets/t-shirt.jpg"
 import { useNavigate } from "react-router";
+import { useLiveItems } from "../../App";
 
 
 const ProductCard = (props) => {
+    const {setCurrentProduct,setCurrentColour}=useLiveItems();
     let redirectToPage =  useNavigate();
+    // let idx = props.idx;
     const handleClick =()=> {
-      redirectToPage("/shop");
+        setCurrentProduct(props.name);
+        setCurrentColour(props.colour)
+        redirectToPage("/shop");
     }
     return (
         <section className="productCard" onClick={handleClick}>
