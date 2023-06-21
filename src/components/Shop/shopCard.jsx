@@ -44,13 +44,15 @@ const ShopCard = () => {
                     <p className="shopPrezzo">${pPrice}</p>
                     <hr />
                     <p className="shopColorTxt">Colore:</p>
+                    <div className="shopContainerColor">
                     {products.filter((prd) => prd.name === currentProduct).map((prod)=>{
                         return <div className="shopColor" style={{ backgroundColor: prod.color }} onClick={()=>{setCurrentColour(prod.color)}}></div>
                     })}
+                    </div>
+                   
                     
                     <div className="shopContainerMisure">
                         <div className="shopTaglia">XS</div>
-                        <div className="shopTaglia">S</div>
                         <div className="shopTaglia">S</div>
                         <div className="shopTaglia">M</div>
                         <div className="shopTaglia">L</div>
