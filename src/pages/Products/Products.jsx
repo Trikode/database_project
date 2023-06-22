@@ -41,7 +41,7 @@ const Products = () => {
             <ProductCard name={product.name} type={product.type} price={product.price} img={product.image} colour={product.color} />
           </div>
           );
-        })};
+        })}
         </div>
       </div>
       <Footer />

@@ -96,7 +96,7 @@ function LoginForm() {
         console.log('Password match');
         setIsLogged(true);
         setCurrentUser(email)
-        redirectToPage("/")
+        user?.role_id === 1 ? redirectToPage("/admin") :redirectToPage("/");
         setEmail('');
         setPassword('');
         

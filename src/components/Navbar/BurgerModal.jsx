@@ -1,10 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./BurgerModal.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 const BurgerModal = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const linkStyle = {
     textDecoration: "none",
     color: "var(--color-primary)",

@@ -214,7 +214,7 @@
 .container-productCard {
     margin-top: 1rem;
     margin-bottom: 1rem;
-    justify-content: start;
+    justify-content: flex-start;
     width: 100%;
     display: flex;
     flex-wrap: wrap;

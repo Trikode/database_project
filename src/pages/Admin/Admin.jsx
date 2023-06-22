@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import AdminNav from "../../components/Admin/AdminNav";
+// import AdminNav from "../../components/Admin/AdminNav";
 import AdminSidebar from "../../components/Admin/AdminSidebar";
-import AdminReport from "../../components/Admin/Adminreport";
-import AdminNew from "../../components/Admin/AdminNew";
-import AdminWarehouse from "../../components/Admin/AdminWarehouse";
+// import AdminReport from "../../components/Admin/Adminreport";
+// import AdminNew from "../../components/Admin/AdminNew";
+// import AdminWarehouse from "../../components/Admin/AdminWarehouse";
 import TopReminder from "../../components/TopReminder/TopReminder";
+import AddProductForm from "../../components/Admin/AddProductForm";
 
 const Admin = () => {
   const [isReport, setReport] = useState(true);
@@ -16,7 +17,7 @@ const Admin = () => {
     <>
       <div className="adminNav">
         <TopReminder />
-        <AdminNav />
+        {/* <AdminNav /> */}
       </div>
       <div className="adminMain">
         <AdminSidebar
@@ -25,9 +26,10 @@ const Admin = () => {
           addWare={() => setWare(!isWare)}
         />
         <div className="P-NCards">
-          {isReport ? <AdminReport /> : () => setReport(false)}
+          <AddProductForm/>
+          {/* {isReport ? <AdminReport /> : () => setReport(false)}
           {isNew ? <AdminNew /> : () => setNew(false)}
-          {isWare ? <AdminWarehouse /> : () => setWare(false)}
+          {isWare ? <AdminWarehouse /> : () => setWare(false)} */}
         </div>
       </div>
     </>

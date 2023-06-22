@@ -1,4 +1,49 @@
 /*-----Logged Account---------*/
+.AccountContainerLogged{
+  background-color: var(--color-variant);
+  height: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+.AloggedSidebar{
+  padding-top: 8rem;
+  width: 16%;
+  height: 100vh;
+  background-color: aliceblue;  
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+}
+.AoptionsAccount{
+  display: flex;
+  width: 85%;
+  height: 100vh;
+  padding-top: 8rem;
+  gap: 2rem;
+  flex-direction: column;
+}
+.AcontainerLogged{
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  width: 60rem;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: aliceblue;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.AavatarImg{
+  height: 10rem;
+  width: 10rem;
+  border-radius: 50%;
+  background-image: url("https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/v937-aew-111_3.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=8ce2cd03f94f2baddcb332cfb50f78b9");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 
 /*------Account NOT Logged----*/
 .AccountContainer{
