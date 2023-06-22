@@ -51,6 +51,29 @@ app.get('/api/products', async (req, res) => {
   }
 });
 
+app.get('/api/sizes', async (req, res) => {
+  try {
+    const results = await db.query('SELECT * FROM sizes');
+    res.json(results);
+  } catch (error) {
+    console.error('Error fetching sizes:', error);
+    res.status(500).json({ error: 'Error fetching sizes' });
+  }
+});
+
+// Route to fetch colors
+app.get('/api/colors', async (req, res) => {
+  try {
+    const results = await db.query('SELECT * FROM colors');
+    res.json(results);
+  } catch (error) {
+    console.error('Error fetching colors:', error);
+    res.status(500).json({ error: 'Error fetching colors' });
+  }
+});
+
+
+
 // POST
 app.post('/api/register', async (req, res) => {
   const { f_name, l_name, email, password } = req.body;
@@ -67,9 +90,39 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
+// app.post('/api/newproduct', async (req, res) => {
+//   const { type, name, sizes, colors, genre, quantity, price, image } = req.body;
+  
+//   try {
+//     // Insert the image URL into the images table
+//     await db.query('INSERT INTO images (image_url) VALUES (?)', [image]);
+    
+//     // Retrieve the inserted image's id_image
+//     const imageQueryResult = await db.query('SELECT LAST_INSERT_ID() AS id_image');
+//     const idImage = imageQueryResult[0].id_image;
+//     console.log(sizes)
+//     console.log(typeof(sizes))
+//     console.log(colors)
+//     console.log(typeof(colors))
+//     // Insert the products into the products table
+//     for (const size of sizes) {
+//       for (const color of colors) {
+//         await db.query(
+//           'INSERT INTO products (id_type, name, size, color, genre, quantity, price, id_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+//           [type, name, size, color, genre, quantity, price, idImage]
+//         );
+//       }
+//     }
+
+//     res.json({ message: 'Product(s) inserted successfully' });
+//   } catch (error) {
+//     console.error('Error executing MySQL query:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
+
 app.post('/api/newproduct', async (req, res) => {
   const { type, name, size, color, genre, quantity, price, image } = req.body;
-  
   try {
     // Insert the image URL into the images table
     await db.query('INSERT INTO images (image_url) VALUES (?)', [image]);
@@ -90,7 +143,6 @@ app.post('/api/newproduct', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 
 // PUT
