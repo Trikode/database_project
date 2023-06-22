@@ -67,34 +67,30 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-app.post('/api/product', (req, res) => {
+app.post('/api/newproduct', async (req, res) => {
   const { type, name, size, color, genre, quantity, price, image } = req.body;
+  
+  try {
+    // Insert the image URL into the images table
+    await db.query('INSERT INTO images (image_url) VALUES (?)', [image]);
+    
+    // Retrieve the inserted image's id_image
+    const imageQueryResult = await db.query('SELECT LAST_INSERT_ID() AS id_image');
+    const idImage = imageQueryResult[0].id_image;
 
-  // Insert the image URL into the images table
-  db.query('INSERT INTO images (image_url) VALUES (?)', [image], (error, imageResult) => {
-    if (error) {
-      console.error('Error inserting image:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    } else {
-      const idImage = imageResult.insertId;
+    // Insert the product into the products table
+    await db.query(
+      'INSERT INTO products (id_type, name, size, color, genre, quantity, price, id_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [type, name, size, color, genre, quantity, price, idImage]
+    );
 
-      // Insert the product into the products table
-      db.query(
-        `INSERT INTO products (id_type, name, size, color, genre, quantity, price, id_image)
-         VALUES ((SELECT id_type FROM product_types WHERE type = ?), ?, ?, ?, ?, ?, ?, ?)`,
-        [type, name, size, color, genre, quantity, price, idImage],
-        (error, productResult) => {
-          if (error) {
-            console.error('Error inserting product:', error);
-            res.status(500).json({ error: 'Internal Server Error' });
-          } else {
-            res.json({ message: 'Product added successfully' });
-          }
-        }
-      );
-    }
-  });
+    res.json({ message: 'Product inserted successfully' });
+  } catch (error) {
+    console.error('Error executing MySQL query:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
+
 
 
 // PUT

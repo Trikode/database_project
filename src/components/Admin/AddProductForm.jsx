@@ -19,9 +19,9 @@ const AddProductForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(JSON.stringify(formData));
     // Send form data to the backend API
-    fetch('/api/products', {
+    fetch('http://localhost:3308/api/newproduct', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -121,7 +121,7 @@ const AddProductForm = () => {
           required
         /><br />
 
-        <input type="submit" value="Add Product" />
+        <button type="submit">Add</button>
       </form>
     </div>
   );
