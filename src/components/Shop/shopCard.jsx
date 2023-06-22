@@ -45,7 +45,7 @@ const ShopCard = () => {
                     <hr />
                     <p className="shopColorTxt">Colore:</p>
                     {products.filter((prd) => prd.name === currentProduct).map((prod)=>{
-                        return <div className="shopColor" style={{ backgroundColor: prod.color }} onClick={()=>{setCurrentColour(prod.color)}}></div>
+                        return <div className="shopColor" style={{ backgroundColor: prod.color }} onClick={()=>{setCurrentColour(prod.color)}}/>
                     })}
                     
                     <div className="shopContainerMisure">
