@@ -7,11 +7,12 @@ import { useLiveItems } from "../../App";
 
 
 const ProductCard = (props) => {
-    const {setCurrentProduct,setCurrentColour}=useLiveItems();
-    let redirectToPage =  useNavigate();
-    const [products,setProducts] = useState([]);
-
-    useEffect(() => {
+  const {setCurrentProduct,setCurrentColour}=useLiveItems();
+  let redirectToPage =  useNavigate();
+  const [products,setProducts] = useState([]);
+  const uniqueColors = Array.from(new Set(products.filter((prd) => prd.name === props.name).map((prod) => prod.color)));
+  
+  useEffect(() => {
       fetch('http://localhost:3308/api/products')
         .then((response) =>response.json())
         .then((data) => setProducts(data))
@@ -32,10 +33,16 @@ const ProductCard = (props) => {
             <p className="typeProduct">{props.type}</p>
             <p className="priceProduct">${props.price}</p>
             <div className="containerColor">
-            {products.filter((prd) => prd.name === props.name).map((prod)=>{
-                        return <div className="btnColorProduct" style={{ backgroundColor: prod.color }} onClick={()=>{setCurrentColour(prod.color)}}/>
-                    })}
-                
+                {uniqueColors.map((color, idx) => (
+                  <div
+                    key={idx}
+                    className="btnColorProduct"
+                    style={{ backgroundColor: color }}
+                    onClick={() => {
+                      setCurrentColour(color);
+                    }} />
+                  ))}
+
             </div>
         </section>
     )

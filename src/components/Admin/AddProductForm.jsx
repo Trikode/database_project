@@ -90,7 +90,7 @@ const AddProductForm = () => {
     // Generate an array of product objects with different size, color, quantity, and price combinations
     const products = formData.selectedSizes.flatMap((selectedSizeId) =>
       formData.selectedColors.map((selectedColorId) => ({
-        id_type: type,
+        type,
         name,
         size: selectedSizeId,
         color: selectedColorId,

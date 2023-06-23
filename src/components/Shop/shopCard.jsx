@@ -17,6 +17,8 @@ const ShopCard = () => {
     const [pImg,setPImg] = useState("");
     // const [pColour,setPColour] = useState("");
     const [pPrice,setPPrice] = useState("");
+    const uniqueColors = Array.from(new Set(products.filter((prd) => prd.name === currentProduct).map((prod) => prod.color)));
+
     
     useEffect(() => {
         fetch('http://localhost:3308/api/products')
@@ -45,9 +47,17 @@ const ShopCard = () => {
                     <hr />
                     <p className="shopColorTxt">Colore:</p>
                     <div className="shopContainerColor">
-                    {products.filter((prd) => prd.name === currentProduct).map((prod)=>{
-                        return <div className="shopColor" style={{ backgroundColor: prod.color }} onClick={()=>{setCurrentColour(prod.color)}}/>
-                    })}
+                    {uniqueColors.map((color, idx) => (
+                  <div
+                    key={idx}
+                    className="btnColorProduct"
+                    style={{ backgroundColor: color }}
+                    onClick={() => {
+                      setCurrentColour(color);
+                    }} />
+                  ))}
+
+
                     </div>
                    
                     
