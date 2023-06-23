@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../../pages/Admin/admin.css"
 
 const AddProductForm = () => {
@@ -12,7 +12,7 @@ const AddProductForm = () => {
     genre: '',
     quantity: '',
     price: '',
-    image: '',
+    images: {},
   });
 
   useEffect(() => {
@@ -73,21 +73,56 @@ const AddProductForm = () => {
         return {
           ...prevFormData,
           selectedColors: [...prevFormData.selectedColors, colorId],
+          images: {
+            ...prevFormData.images,
+            [colorId]: '', // Initialize the image URL for the new color
+          },
         };
       } else {
+        const { [colorId]: _, ...updatedImages } = prevFormData.images; // Remove the image URL for the deselected color
+
         return {
           ...prevFormData,
           selectedColors: prevFormData.selectedColors.filter((id) => id !== colorId),
+          images: updatedImages,
         };
       }
     });
   };
 
+
+
+const handleImageChange = (e, colorId) => {
+  const imageURL = e.target.value;
+
+  setFormData((prevFormData) => {
+    const updatedImages = {
+      ...prevFormData.images,
+      [colorId]: imageURL,
+    };
+
+    // Remove duplicate image URLs and keep only unique URLs
+    const uniqueImages = {};
+    for (const color in updatedImages) {
+      const url = updatedImages[color];
+      if (url && !Object.values(uniqueImages).includes(url)) {
+        uniqueImages[color] = url;
+      }
+    }
+
+    return {
+      ...prevFormData,
+      images: uniqueImages,
+    };
+  });
+};
+
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { type, name, genre, quantity, price, image } = formData;
+    const { type, name, genre, quantity, price, images } = formData;
 
-    // Generate an array of product objects with different size, color, quantity, and price combinations
     const products = formData.selectedSizes.flatMap((selectedSizeId) =>
       formData.selectedColors.map((selectedColorId) => ({
         type,
@@ -97,10 +132,10 @@ const AddProductForm = () => {
         genre,
         quantity,
         price,
-        image,
+        image: images[selectedColorId],
       }))
     );
-      console.log(products)
+
     // Insert each product into the database
     Promise.all(
       products.map((product) =>
@@ -174,6 +209,18 @@ const AddProductForm = () => {
               onChange={handleColorChange}
             />
             <label htmlFor={`color-${color.id_color}`}>{color.color}</label>
+
+            {formData.selectedColors.includes(color.id_color) && (
+              <input
+                type="text"
+                id={`image-${color.id_color}`}
+                name={`image-${color.id_color}`}
+                value={formData.images[color.id_color]}
+                onChange={(e) => handleImageChange(e, color.id_color)}
+                required
+                placeholder="Image URL"
+              />
+            )}
           </div>
         ))}
         <br />
@@ -204,16 +251,6 @@ const AddProductForm = () => {
           id="price"
           name="price"
           value={formData.price}
-          onChange={handleInputChange}
-          required
-        /><br />
-
-        <label htmlFor="image">Image URL:</label>
-        <input
-          type="text"
-          id="image"
-          name="image"
-          value={formData.image}
           onChange={handleInputChange}
           required
         /><br />

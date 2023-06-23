@@ -121,15 +121,27 @@ app.post('/api/register', async (req, res) => {
 //   }
 // });
 
+// ...
+
 app.post('/api/newproduct', async (req, res) => {
   const { type, name, size, color, genre, quantity, price, image } = req.body;
   try {
-    // Insert the image URL into the images table
-    await db.query('INSERT INTO images (image_url) VALUES (?)', [image]);
+    let idImage;
     
-    // Retrieve the inserted image's id_image
-    const imageQueryResult = await db.query('SELECT LAST_INSERT_ID() AS id_image');
-    const idImage = imageQueryResult[0].id_image;
+    // Check if the image URL already exists in the images table
+    const existingImageQuery = await db.query('SELECT id_image FROM images WHERE image_url = ?', [image]);
+    
+    if (existingImageQuery.length > 0) {
+      // If the image URL already exists, use the existing id_image
+      idImage = existingImageQuery[0].id_image;
+    } else {
+      // If the image URL does not exist, insert it into the images table
+      await db.query('INSERT INTO images (image_url) VALUES (?)', [image]);
+      
+      // Retrieve the inserted image's id_image
+      const imageQueryResult = await db.query('SELECT LAST_INSERT_ID() AS id_image');
+      idImage = imageQueryResult[0].id_image;
+    }
 
     // Insert the product into the products table
     await db.query(
@@ -143,6 +155,9 @@ app.post('/api/newproduct', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+// ...
+
 
 
 // PUT
