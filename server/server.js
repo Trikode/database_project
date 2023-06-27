@@ -1,7 +1,7 @@
-const express = require('express');
-const cors = require('cors');
-const db = require('./db.js');
-const bcrypt = require('bcrypt');
+const express = require("express");
+const cors = require("cors");
+const db = require("./db.js");
+const bcrypt = require("bcrypt");
 
 const app = express();
 const port = 3308;
@@ -12,17 +12,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 //GET
-app.get('/api/users', async (req, res) => {
+app.get("/api/users", async (req, res) => {
   try {
-    const results = await db.query('SELECT * FROM users');
+    const results = await db.query("SELECT * FROM users");
     res.json(results);
   } catch (error) {
-    console.error('Error executing MySQL query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error executing MySQL query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-app.get('/api/products', async (req, res) => {
+app.get("/api/products", async (req, res) => {
   try {
     const results = await db.query(`
       SELECT p.*, pt.type AS type_name, s.size AS size_name, c.color AS color_name, i.image_url AS image_url, g.size AS genre_name
@@ -46,67 +46,65 @@ app.get('/api/products', async (req, res) => {
     }));
     res.json(formattedResults);
   } catch (error) {
-    console.error('Error executing MySQL query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error executing MySQL query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-app.get('/api/sizes', async (req, res) => {
+app.get("/api/sizes", async (req, res) => {
   try {
-    const results = await db.query('SELECT * FROM sizes');
+    const results = await db.query("SELECT * FROM sizes");
     res.json(results);
   } catch (error) {
-    console.error('Error fetching sizes:', error);
-    res.status(500).json({ error: 'Error fetching sizes' });
+    console.error("Error fetching sizes:", error);
+    res.status(500).json({ error: "Error fetching sizes" });
   }
 });
 
 // Route to fetch colors
-app.get('/api/colors', async (req, res) => {
+app.get("/api/colors", async (req, res) => {
   try {
-    const results = await db.query('SELECT * FROM colors');
+    const results = await db.query("SELECT * FROM colors");
     res.json(results);
   } catch (error) {
-    console.error('Error fetching colors:', error);
-    res.status(500).json({ error: 'Error fetching colors' });
+    console.error("Error fetching colors:", error);
+    res.status(500).json({ error: "Error fetching colors" });
   }
 });
 
-app.get('/api/deliveries', async (req, res) => {
+app.get("/api/deliveries", async (req, res) => {
   try {
-    const results = await db.query('SELECT * FROM deliveries');
+    const results = await db.query("SELECT * FROM deliveries");
     res.json(results);
   } catch (error) {
-    console.error('Error fetching deliveries:', error);
-    res.status(500).json({ error: 'Error fetching deliveries' });
+    console.error("Error fetching deliveries:", error);
+    res.status(500).json({ error: "Error fetching deliveries" });
   }
 });
-
-
 
 // POST
-app.post('/api/register', async (req, res) => {
+app.post("/api/register", async (req, res) => {
   const { f_name, l_name, email, password } = req.body;
   try {
     const hash = await bcrypt.hash(password, 10);
     await db.query(
-      'INSERT INTO users (f_name, l_name, email, password, role_id) VALUES (?, ?, ?, ?, 2)',
+      "INSERT INTO users (f_name, l_name, email, password, role_id) VALUES (?, ?, ?, ?, 2)",
       [f_name, l_name, email, hash]
     );
-    res.json({ message: 'User registered successfully' });
+    res.json({ message: "User registered successfully" });
   } catch (error) {
-    console.error('Error executing MySQL query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error executing MySQL query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
 // app.post('/api/newproduct', async (req, res) => {
 //   const { type, name, sizes, colors, genre, quantity, price, image } = req.body;
-  
+
 //   try {
 //     // Insert the image URL into the images table
 //     await db.query('INSERT INTO images (image_url) VALUES (?)', [image]);
-    
+
 //     // Retrieve the inserted image's id_image
 //     const imageQueryResult = await db.query('SELECT LAST_INSERT_ID() AS id_image');
 //     const idImage = imageQueryResult[0].id_image;
@@ -133,57 +131,61 @@ app.post('/api/register', async (req, res) => {
 
 // ...
 
-app.post('/api/newproduct', async (req, res) => {
+app.post("/api/newproduct", async (req, res) => {
   const { type, name, size, color, genre, quantity, price, image } = req.body;
   try {
     let idImage;
-    
+
     // Check if the image URL already exists in the images table
-    const existingImageQuery = await db.query('SELECT id_image FROM images WHERE image_url = ?', [image]);
-    
+    const existingImageQuery = await db.query(
+      "SELECT id_image FROM images WHERE image_url = ?",
+      [image]
+    );
+
     if (existingImageQuery.length > 0) {
       // If the image URL already exists, use the existing id_image
       idImage = existingImageQuery[0].id_image;
     } else {
       // If the image URL does not exist, insert it into the images table
-      await db.query('INSERT INTO images (image_url) VALUES (?)', [image]);
-      
+      await db.query("INSERT INTO images (image_url) VALUES (?)", [image]);
+
       // Retrieve the inserted image's id_image
-      const imageQueryResult = await db.query('SELECT LAST_INSERT_ID() AS id_image');
+      const imageQueryResult = await db.query(
+        "SELECT LAST_INSERT_ID() AS id_image"
+      );
       idImage = imageQueryResult[0].id_image;
     }
 
     // Insert the product into the products table
     await db.query(
-      'INSERT INTO products (id_type, name, size, color, genre, quantity, price, id_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      "INSERT INTO products (id_type, name, size, color, genre, quantity, price, id_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
       [type, name, size, color, genre, quantity, price, idImage]
     );
 
-    res.json({ message: 'Product inserted successfully' });
+    res.json({ message: "Product inserted successfully" });
   } catch (error) {
-    console.error('Error executing MySQL query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error executing MySQL query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-// ...
-
-
-
 // PUT
-app.put('/api/reset-password', async (req, res) => {
+app.put("/api/reset-password", async (req, res) => {
   const { email, newPassword } = req.body;
   try {
     const hash = await bcrypt.hash(newPassword, 10);
-    const results = await db.query('UPDATE users SET password = ? WHERE email = ?', [hash, email]);
+    const results = await db.query(
+      "UPDATE users SET password = ? WHERE email = ?",
+      [hash, email]
+    );
     if (results.affectedRows === 0) {
-      res.status(404).json({ error: 'User not found' });
+      res.status(404).json({ error: "User not found" });
     } else {
-      res.json({ message: 'Password updated successfully' });
+      res.json({ message: "Password updated successfully" });
     }
   } catch (error) {
-    console.error('Error executing MySQL query:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error executing MySQL query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
