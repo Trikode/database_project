@@ -1,5 +1,6 @@
 import React from "react";
 import "../../pages/Home/home.css"
+import heroImg from "../../assets/heroImg.png"
 
 const Hero = ()=>{
 
@@ -14,6 +15,7 @@ const Hero = ()=>{
         </h5>
       </div>
       <div className="rightH">
+        <img src=" " alt="" />
       </div>
   </div>
   )
