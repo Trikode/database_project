@@ -15,7 +15,7 @@ const Hero = ()=>{
         </h5>
       </div>
       <div className="rightH">
-        <img src=" " alt="" />
+        <img src={heroImg} alt="" />
       </div>
   </div>
   )
