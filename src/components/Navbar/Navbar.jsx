@@ -1,29 +1,29 @@
 import React from "react";
-import {useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./navbar.css";
 import { BsSearch } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import {RiAccountCircleLine} from "react-icons/ri"
+import { RiAccountCircleLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import BurgerModal from "./BurgerModal";
 import Logo from "../../assets/logo2.svg";
 import { useLiveItems } from "../../App";
 
 const Navbar = () => {
-  const { isLogged,liveItems,setCartModal,currentUser} = useLiveItems();
+  const { isLogged, liveItems, setCartModal, currentUser } = useLiveItems();
   const [users, setUsers] = useState([]);
-  const [displayName,setDisplayName] = useState("")
+  const [displayName, setDisplayName] = useState("");
 
   useEffect(() => {
-    fetch('http://localhost:3308/api/users')
-      .then((response) =>response.json())
+    fetch("http://localhost:3308/api/users")
+      .then((response) => response.json())
       .then((data) => setUsers(data))
-      .catch((error) => console.error('Error:', error));
-  }, []);  
+      .catch((error) => console.error("Error:", error));
+  }, []);
 
   useEffect(() => {
     if (isLogged) {
-      const user = users.find((user) => user.email === currentUser);
+      const user = users.find((user) => user.id_user === currentUser.id_user);
       setDisplayName(user?.f_name);
     }
   }, [currentUser, users, isLogged]);
@@ -66,10 +66,10 @@ const Navbar = () => {
             <BsSearch />
           </div>
         </div>
-        <div className="Naccount-container" >
-          <p>{isLogged ?`Ciao,${displayName}!`:""}</p>
+        <div className="Naccount-container">
+          <p>{isLogged ? `Ciao,${displayName}!` : ""}</p>
           <Link to={"/account"}>
-            <RiAccountCircleLine className="accountIcon"/>
+            <RiAccountCircleLine className="accountIcon" />
           </Link>
         </div>
         <div className="cart-container">

@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import "../../pages/Admin/admin.css"
+import React, { useState, useEffect } from "react";
+import "../../pages/Admin/admin.css";
 
 const AddProductForm = () => {
   const [formData, setFormData] = useState({
-    type: '',
-    name: '',
+    type: "",
+    name: "",
     sizes: [],
-    selectedSizes: [],
+    selectedSizes: {},
     colors: [],
     selectedColors: [],
-    genre: '',
-    quantity: '',
-    price: '',
+    genre: "",
+    quantities: {},
+    price: "",
     images: {},
   });
 
   useEffect(() => {
-    fetch('http://localhost:3308/api/sizes')
+    fetch("http://localhost:3308/api/sizes")
       .then((response) => response.json())
       .then((data) => {
         setFormData((prevFormData) => ({
@@ -25,10 +25,10 @@ const AddProductForm = () => {
         }));
       })
       .catch((error) => {
-        console.error('Error fetching sizes:', error);
+        console.error("Error fetching sizes:", error);
       });
 
-    fetch('http://localhost:3308/api/colors')
+    fetch("http://localhost:3308/api/colors")
       .then((response) => response.json())
       .then((data) => {
         setFormData((prevFormData) => ({
@@ -37,7 +37,7 @@ const AddProductForm = () => {
         }));
       })
       .catch((error) => {
-        console.error('Error fetching colors:', error);
+        console.error("Error fetching colors:", error);
       });
   }, []);
 
@@ -45,23 +45,39 @@ const AddProductForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSizeChange = (e) => {
+  const handleSizeChange = (e, colorId) => {
+    // Pass colorId as an argument
     const sizeId = parseInt(e.target.value);
     const isChecked = e.target.checked;
 
     setFormData((prevFormData) => {
-      if (isChecked) {
-        return {
-          ...prevFormData,
-          selectedSizes: [...prevFormData.selectedSizes, sizeId],
-        };
-      } else {
-        return {
-          ...prevFormData,
-          selectedSizes: prevFormData.selectedSizes.filter((id) => id !== sizeId),
-        };
-      }
+      const updatedSelectedSizes = {
+        ...prevFormData.selectedSizes,
+        [colorId]: isChecked
+          ? [...(prevFormData.selectedSizes[colorId] || []), sizeId]
+          : prevFormData.selectedSizes[colorId].filter((id) => id !== sizeId),
+      };
+
+      return {
+        ...prevFormData,
+        selectedSizes: updatedSelectedSizes,
+      };
     });
+  };
+
+  const handleQuantityChange = (e, colorId, sizeId) => {
+    const quantityValue = e.target.value;
+
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      quantities: {
+        ...prevFormData.quantities,
+        [colorId]: {
+          ...prevFormData.quantities[colorId],
+          [sizeId]: quantityValue,
+        },
+      },
+    }));
   };
 
   const handleColorChange = (e) => {
@@ -75,7 +91,7 @@ const AddProductForm = () => {
           selectedColors: [...prevFormData.selectedColors, colorId],
           images: {
             ...prevFormData.images,
-            [colorId]: '', // Initialize the image URL for the new color
+            [colorId]: "", // Initialize the image URL for the new color
           },
         };
       } else {
@@ -83,77 +99,64 @@ const AddProductForm = () => {
 
         return {
           ...prevFormData,
-          selectedColors: prevFormData.selectedColors.filter((id) => id !== colorId),
+          selectedColors: prevFormData.selectedColors.filter(
+            (id) => id !== colorId
+          ),
           images: updatedImages,
         };
       }
     });
   };
 
+  const handleImageChange = (e, colorId) => {
+    const imageURL = e.target.value;
 
-
-const handleImageChange = (e, colorId) => {
-  const imageURL = e.target.value;
-
-  setFormData((prevFormData) => {
-    const updatedImages = {
-      ...prevFormData.images,
-      [colorId]: imageURL,
-    };
-
-    // Remove duplicate image URLs and keep only unique URLs
-    const uniqueImages = {};
-    for (const color in updatedImages) {
-      const url = updatedImages[color];
-      if (url && !Object.values(uniqueImages).includes(url)) {
-        uniqueImages[color] = url;
-      }
-    }
-
-    return {
+    setFormData((prevFormData) => ({
       ...prevFormData,
-      images: uniqueImages,
-    };
-  });
-};
-
-
+      images: {
+        ...prevFormData.images,
+        [colorId]: imageURL,
+      },
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { type, name, genre, quantity, price, images } = formData;
+    const { type, name, genre, price, images } = formData;
 
-    const products = formData.selectedSizes.flatMap((selectedSizeId) =>
-      formData.selectedColors.map((selectedColorId) => ({
+    const products = formData.selectedColors.flatMap((colorId) =>
+      formData.selectedSizes[colorId].map((sizeId) => ({
         type,
         name,
-        size: selectedSizeId,
-        color: selectedColorId,
+        size: sizeId,
+        color: colorId,
         genre,
-        quantity,
+        quantity: formData.quantities[colorId][sizeId],
         price,
-        image: images[selectedColorId],
+        image: images[colorId],
       }))
     );
 
     // Insert each product into the database
     Promise.all(
       products.map((product) =>
-        fetch('http://localhost:3308/api/newproduct', {
-          method: 'POST',
+        fetch("http://localhost:3308/api/newproduct", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(product),
         })
       )
     )
-      .then((responses) => Promise.all(responses.map((response) => response.json())))
+      .then((responses) =>
+        Promise.all(responses.map((response) => response.json()))
+      )
       .then((data) => {
         console.log(data); // Handle the response from the server
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
   };
 
@@ -169,7 +172,8 @@ const handleImageChange = (e, colorId) => {
           value={formData.type}
           onChange={handleInputChange}
           required
-        /><br />
+        />
+        <br />
 
         <label htmlFor="name">Name:</label>
         <input
@@ -179,52 +183,80 @@ const handleImageChange = (e, colorId) => {
           value={formData.name}
           onChange={handleInputChange}
           required
-        /><br />
-
-        <label htmlFor="sizes">Sizes:</label>
-        {formData.sizes.map((size) => (
-          <div key={size.id_size}>
-            <input
-              type="checkbox"
-              id={`size-${size.id_size}`}
-              name="sizes"
-              value={size.id_size}
-              checked={formData.selectedSizes.includes(size.id_size)}
-              onChange={handleSizeChange}
-            />
-            <label htmlFor={`size-${size.id_size}`}>{size.size}</label>
-          </div>
-        ))}
+        />
         <br />
 
-        <label htmlFor="colors">Colors:</label>
-        {formData.colors.map((color) => (
-          <div key={color.id_color}>
-            <input
-              type="checkbox"
-              id={`color-${color.id_color}`}
-              name="colors"
-              value={color.id_color}
-              checked={formData.selectedColors.includes(color.id_color)}
-              onChange={handleColorChange}
-            />
-            <label htmlFor={`color-${color.id_color}`}>{color.color}</label>
-
-            {formData.selectedColors.includes(color.id_color) && (
-              <input
-                type="text"
-                id={`image-${color.id_color}`}
-                name={`image-${color.id_color}`}
-                value={formData.images[color.id_color]}
-                onChange={(e) => handleImageChange(e, color.id_color)}
-                required
-                placeholder="Image URL"
-              />
-            )}
+        {/* <label htmlFor="sizes">Sizes:</label> */}
+        <div className="Aselection-container">
+          <div className="Acolor-container">
+            <label htmlFor="colors">Colors:</label>
+            {formData.colors.map((color) => (
+              <div key={color.id_color}>
+                <input
+                  type="checkbox"
+                  id={`color-${color.id_color}`}
+                  name="colors"
+                  value={color.id_color}
+                  checked={formData.selectedColors.includes(color.id_color)}
+                  onChange={handleColorChange}
+                />
+                <label htmlFor={`color-${color.id_color}`}>{color.color}</label>
+                {formData.selectedColors.includes(color.id_color) && (
+                  <input
+                    type="text"
+                    id={`image-${color.id_color}`}
+                    name={`image-${color.id_color}`}
+                    value={formData.images[color.id_color]}
+                    onChange={(e) => handleImageChange(e, color.id_color)}
+                    required
+                    placeholder="Image URL"
+                  />
+                )}
+              </div>
+            ))}
           </div>
-        ))}
-        <br />
-
+          <div className="Asize-container">
+            {formData.selectedColors.map((colorId) => (
+              <div key={colorId} className="Asize-container-child">
+                {formData.sizes.map((size) => (
+                  <div key={size.id_size}>
+                    <input
+                      type="checkbox"
+                      id={`size-${size.id_size}-${colorId}`}
+                      name={`sizes-${colorId}`}
+                      value={size.id_size}
+                      checked={formData.selectedSizes[colorId]?.includes(
+                        size.id_size
+                      )}
+                      onChange={(e) => handleSizeChange(e, colorId)} // Pass colorId as an argument
+                    />
+                    <label htmlFor={`size-${size.id_size}-${colorId}`}>
+                      {size.size}
+                    </label>
+                    {formData.selectedSizes[colorId]?.includes(
+                      size.id_size
+                    ) && (
+                      <input
+                        type="number"
+                        id={`quantity-${size.id_size}-${colorId}`}
+                        name={`quantity-${size.id_size}-${colorId}`}
+                        value={
+                          formData.quantities[colorId]?.[size.id_size] || ""
+                        }
+                        className="AquantityInput"
+                        onChange={(e) =>
+                          handleQuantityChange(e, colorId, size.id_size)
+                        }
+                        required
+                        placeholder="n."
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
         <label htmlFor="genre">Genre:</label>
         <input
           type="text"
@@ -233,17 +265,8 @@ const handleImageChange = (e, colorId) => {
           value={formData.genre}
           onChange={handleInputChange}
           required
-        /><br />
-
-        <label htmlFor="quantity">Quantity:</label>
-        <input
-          type="number"
-          id="quantity"
-          name="quantity"
-          value={formData.quantity}
-          onChange={handleInputChange}
-          required
-        /><br />
+        />
+        <br />
 
         <label htmlFor="price">Price:</label>
         <input
@@ -253,9 +276,10 @@ const handleImageChange = (e, colorId) => {
           value={formData.price}
           onChange={handleInputChange}
           required
-        /><br />
+        />
+        <br />
 
-        <button type="submit">Add</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

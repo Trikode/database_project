@@ -4,7 +4,7 @@ import { useState } from "react";
 import AdminSidebar from "../../components/Admin/AdminSidebar";
 // import AdminReport from "../../components/Admin/Adminreport";
 // import AdminNew from "../../components/Admin/AdminNew";
-// import AdminWarehouse from "../../components/Admin/AdminWarehouse";
+import AdminWarehouse from "../../components/Admin/AdminWarehouse";
 import TopReminder from "../../components/TopReminder/TopReminder";
 import AddProductForm from "../../components/Admin/AddProductForm";
 
@@ -26,10 +26,10 @@ const Admin = () => {
           addWare={() => setWare(!isWare)}
         />
         <div className="P-NCards">
-          <AddProductForm/>
+          <AddProductForm />
           {/* {isReport ? <AdminReport /> : () => setReport(false)}
-          {isNew ? <AdminNew /> : () => setNew(false)}
-          {isWare ? <AdminWarehouse /> : () => setWare(false)} */}
+          {isNew ? <AdminNew /> : () => setNew(false)}*/}
+          {isWare ? <AdminWarehouse /> : () => setWare(false)}
         </div>
       </div>
     </>

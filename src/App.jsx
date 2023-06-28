@@ -7,7 +7,7 @@ import Home from "./pages/Home/Home";
 import Products from "./pages/Products/Products";
 import Cart from "./pages/Cart/Cart";
 import Admin from "./pages/Admin/Admin";
-import Account from "./pages/Account/Account"
+import Account from "./pages/Account/Account";
 import Shop from "./pages/Shop/shop";
 
 const itemsContext = createContext();
@@ -18,10 +18,10 @@ const Provider = ({ children }) => {
   const [aBurger, setABurger] = useState(false);
   const [cartModal, setCartModal] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
-  const [currentUser, setCurrentUser] = useState("");
-  const [currentProduct, setCurrentProduct]=useState("");
-  const [currentColour,setCurrentColour]=useState("");
- 
+  const [currentUser, setCurrentUser] = useState({});
+  const [currentProduct, setCurrentProduct] = useState("");
+  const [currentColour, setCurrentColour] = useState("");
+
   const exposed = {
     liveItems,
     setLiveItems,
@@ -36,7 +36,7 @@ const Provider = ({ children }) => {
     currentProduct,
     setCurrentProduct,
     currentColour,
-    setCurrentColour
+    setCurrentColour,
   };
   return (
     <itemsContext.Provider value={exposed}>{children}</itemsContext.Provider>

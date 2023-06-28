@@ -47,8 +47,29 @@
         border-radius:10px;
         box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );  
     }
-    
-    
+    /*------Add Product Form------*/
+    .Aselection-container{
+        display: flex;
+    }
+    .Acolor-container{
+        display: flex;
+        gap: 4px;
+        flex-direction: column;
+    }
+    .Asize-container{
+        display: flex;
+        flex-direction: column;
+        padding: 1.3rem 0 0 0.5rem;
+        gap: 5.5px;
+    }
+    .Asize-container-child{
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+    .AquantityInput{
+        width: 3rem;
+    }
     /*---------Navbar----------*/
     .adminNav{
         display: none;
@@ -304,13 +325,13 @@
     
     /*--------warehouse------*/
     .warehouse{
-        width: 45rem;
+        width: 60rem;
         height: 30rem;   
         overflow-y: auto ;
     }
     
     .wTableHead th{
-        width: 12%;
+        width: 5%;
         font-size: 18px;
         
     }

@@ -1,5 +1,5 @@
 
-h2 {
+.CartContainer h2 {
   margin-bottom: 0px;
   margin-top: 25px;
   text-align: center;
@@ -15,16 +15,16 @@ h2 {
   display: flex;
 }
 
-ul {
+.CartContainer ul {
   margin: 0;
   padding: 0;
 }
-ul li {
+.CartContainer ul li { 
   list-style: none;
   padding-left: 10px;
   cursor: pointer;
 }
-ul li:hover {
+.CartContainer ul li:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 

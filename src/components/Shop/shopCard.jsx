@@ -7,10 +7,7 @@ import { useLiveItems } from "../../App";
 
 import { MdLocalShipping } from "react-icons/md";
 import { AiFillSafetyCertificate } from "react-icons/ai";
-import { func } from "prop-types";
-
-
-
+// import { func } from "prop-types";
 
 const ShopCard = () => {
   const { currentProduct, currentColour, setCurrentColour } = useLiveItems();
@@ -20,26 +17,29 @@ const ShopCard = () => {
   // const [pColour,setPColour] = useState("");
   const [pPrice, setPPrice] = useState("");
   const [selectedSize, setSelectedSize] = useState(null);
-  const uniqueColors = Array.from(new Set(products.filter((prd) => prd.name === currentProduct).map((prod) => prod.color)));
-
+  const uniqueColors = Array.from(
+    new Set(
+      products
+        .filter((prd) => prd.name === currentProduct)
+        .map((prod) => prod.color)
+    )
+  );
 
   useEffect(() => {
-    fetch('http://localhost:3308/api/products')
+    fetch("http://localhost:3308/api/products")
       .then((response) => response.json())
       .then((data) => setProducts(data))
-      .catch((error) => console.error('Error:', error));
+      .catch((error) => console.error("Error:", error));
   }, []);
   useEffect(() => {
-    const product = products.find((prd) => prd.name === currentProduct && prd.color === currentColour);
+    const product = products.find(
+      (prd) => prd.name === currentProduct && prd.color === currentColour
+    );
     setPName(product?.name);
     setPImg(product?.image);
     //   setPColour(product?.color);
     setPPrice(product?.price);
-
-  }, [products, currentProduct, currentColour])
-
-
-
+  }, [products, currentProduct, currentColour]);
 
   const handleSizeClick = (size) => {
     setSelectedSize(size);
@@ -64,46 +64,47 @@ const ShopCard = () => {
                 style={{ backgroundColor: color }}
                 onClick={() => {
                   setCurrentColour(color);
-                }} />
+                }}
+              />
             ))}
           </div>
 
-
-
           <div className="shopContainerMisure">
             <div
-              className={`shopTaglia ${selectedSize === 'XS' ? 'selected' : ''}`}
-              onClick={() => handleSizeClick('XS')}
+              className={`shopTaglia ${
+                selectedSize === "XS" ? "selected" : ""
+              }`}
+              onClick={() => handleSizeClick("XS")}
             >
               XS
             </div>
             <div
-              className={`shopTaglia ${selectedSize === 'S' ? 'selected' : ''}`}
-              onClick={() => handleSizeClick('S')}
+              className={`shopTaglia ${selectedSize === "S" ? "selected" : ""}`}
+              onClick={() => handleSizeClick("S")}
             >
               S
             </div>
             <div
-              className={`shopTaglia ${selectedSize === 'M' ? 'selected' : ''}`}
-              onClick={() => handleSizeClick('M')}
+              className={`shopTaglia ${selectedSize === "M" ? "selected" : ""}`}
+              onClick={() => handleSizeClick("M")}
             >
               M
             </div>
             <div
-              className={`shopTaglia ${selectedSize === 'L' ? 'selected' : ''}`}
-              onClick={() => handleSizeClick('L')}
+              className={`shopTaglia ${selectedSize === "L" ? "selected" : ""}`}
+              onClick={() => handleSizeClick("L")}
             >
               L
             </div>
             <div
-              className={`shopTaglia ${selectedSize === 'XL' ? 'selected' : ''}`}
-              onClick={() => handleSizeClick('XL')}
+              className={`shopTaglia ${
+                selectedSize === "XL" ? "selected" : ""
+              }`}
+              onClick={() => handleSizeClick("XL")}
             >
               XL
             </div>
           </div>
-
-
 
           <div className="shopAggiungi">AGGIUNGI AL CARRELLO</div>
           <div className="shopContainerSpedizione">
@@ -111,19 +112,23 @@ const ShopCard = () => {
               <MdLocalShipping size={30} />
               <p>Spedizione gratuita</p>
             </div>
-            <p className="shopParSpedizione">Spedizione standard gratuita sugli ordini superiori a 9.00€ 8-12 Giorni Lavorativi</p>
+            <p className="shopParSpedizione">
+              Spedizione standard gratuita sugli ordini superiori a 9.00€ 8-12
+              Giorni Lavorativi
+            </p>
 
             <div className="shopCardInfo">
               <AiFillSafetyCertificate size={30} />
               <p>Politica di Ritorno</p>
             </div>
-            <p className="shopParSpedizione">Resi grautiti in caso di difetto o altri problemi.</p>
-
+            <p className="shopParSpedizione">
+              Resi grautiti in caso di difetto o altri problemi.
+            </p>
           </div>
         </div>
       </section>
     </>
-  )
-}
+  );
+};
 
 export default ShopCard;
