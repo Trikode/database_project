@@ -4,21 +4,21 @@ import Footer from "../../components/Footer/Footer";
 import "./cart.css";
 // import { FaTrash } from "react-icons/fa";
 // import PaymentLogos from "../../components/Cart/PaymentComponent";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import { useLiveItems } from "../../App";
 import TopReminder from "../../components/TopReminder/TopReminder";
 import CartAdress from "../../components/Cart/CartAdress";
 
 const Cart = () => {
-  const {currentUser} = useLiveItems();
-  const [deliveries,setDeliveries]= useState([])
+  const { currentUser } = useLiveItems();
+  const [deliveries, setDeliveries] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:3308/api/deliveries')
-      .then((response) =>response.json())
+    fetch("http://localhost:3308/api/deliveries")
+      .then((response) => response.json())
       .then((data) => setDeliveries(data))
-      .catch((error) => console.error('Error:', error));
-  }, []);  
+      .catch((error) => console.error("Error:", error));
+  }, []);
   // const user = deliveries.find((user) => user.id_user === currentUser.id_user);
   return (
     <>
@@ -135,10 +135,19 @@ const Cart = () => {
           <div class="CartCredit-info">
             <div class="CartCredit-info-content">
               <form>
-                {deliveries.find((user) => user.id_user === currentUser.id_user).map((delivery)=>{
-                  return<CartAdress name={delivery.first_name}/>
-                })}
-                
+                {deliveries
+                  .filter((del) => del.id_user === currentUser.id_user)
+                  .map((delivery) => {
+                    return (
+                      <CartAdress
+                        nome={delivery.first_name}
+                        cognome={delivery.last_name}
+                        indirizzo={delivery.adress}
+                        città={delivery.city}
+                        cap={delivery.cap}
+                      />
+                    );
+                  })}
               </form>
 
               <button class="CartPay-btn">Checkout</button>

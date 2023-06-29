@@ -39,6 +39,7 @@ const ShopCard = () => {
     setPImg(product?.image);
     //   setPColour(product?.color);
     setPPrice(product?.price);
+    console.log(product);
   }, [products, currentProduct, currentColour]);
 
   const handleSizeClick = (size) => {
@@ -70,43 +71,31 @@ const ShopCard = () => {
           </div>
 
           <div className="shopContainerMisure">
-            <div
-              className={`shopTaglia ${
-                selectedSize === "XS" ? "selected" : ""
-              }`}
-              onClick={() => handleSizeClick("XS")}
-            >
-              XS
-            </div>
-            <div
-              className={`shopTaglia ${selectedSize === "S" ? "selected" : ""}`}
-              onClick={() => handleSizeClick("S")}
-            >
-              S
-            </div>
-            <div
-              className={`shopTaglia ${selectedSize === "M" ? "selected" : ""}`}
-              onClick={() => handleSizeClick("M")}
-            >
-              M
-            </div>
-            <div
-              className={`shopTaglia ${selectedSize === "L" ? "selected" : ""}`}
-              onClick={() => handleSizeClick("L")}
-            >
-              L
-            </div>
-            <div
-              className={`shopTaglia ${
-                selectedSize === "XL" ? "selected" : ""
-              }`}
-              onClick={() => handleSizeClick("XL")}
-            >
-              XL
-            </div>
+            {["xs", "s", "m", "l", "xl"].map((size) => {
+              const isDisabled = !products.some(
+                (prod) =>
+                  prod.name === currentProduct &&
+                  prod.size === size &&
+                  currentColour === prod.color &&
+                  prod.quantity > 0
+              );
+              return (
+                <div
+                  key={size}
+                  className={`shopTaglia ${
+                    selectedSize === size ? (isDisabled ? "" : "selected") : ""
+                  } ${isDisabled ? "disabledButton" : ""}`}
+                  onClick={() => handleSizeClick(size)}
+                  disabled={isDisabled}
+                >
+                  {size}
+                </div>
+              );
+            })}
           </div>
 
           <div className="shopAggiungi">AGGIUNGI AL CARRELLO</div>
+
           <div className="shopContainerSpedizione">
             <div className="shopCardInfo">
               <MdLocalShipping size={30} />

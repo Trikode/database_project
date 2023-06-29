@@ -16,7 +16,6 @@ const defaultLiveItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 const Provider = ({ children }) => {
   const [liveItems, setLiveItems] = useState(defaultLiveItems.length);
   const [aBurger, setABurger] = useState(false);
-  const [cartModal, setCartModal] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [currentProduct, setCurrentProduct] = useState("");
@@ -27,8 +26,6 @@ const Provider = ({ children }) => {
     setLiveItems,
     aBurger,
     setABurger,
-    cartModal,
-    setCartModal,
     isLogged,
     setIsLogged,
     currentUser,

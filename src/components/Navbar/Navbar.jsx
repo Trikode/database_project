@@ -10,7 +10,7 @@ import Logo from "../../assets/logo2.svg";
 import { useLiveItems } from "../../App";
 
 const Navbar = () => {
-  const { isLogged, liveItems, setCartModal, currentUser } = useLiveItems();
+  const { isLogged, liveItems, currentUser } = useLiveItems();
   const [users, setUsers] = useState([]);
   const [displayName, setDisplayName] = useState("");
 
@@ -38,7 +38,6 @@ const Navbar = () => {
     justifyContent: "center",
     alignItems: "center",
   };
-  console.log(isLogged);
 
   return (
     <nav className="navbar">
@@ -81,10 +80,7 @@ const Navbar = () => {
             ""
           )}
           <Link to={"/cart"} style={cartStyle}>
-            <AiOutlineShoppingCart
-              className="cart"
-              onMouseEnter={() => setCartModal(true)}
-            />
+            <AiOutlineShoppingCart className="cart" />
           </Link>
         </div>
       </div>
