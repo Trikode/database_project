@@ -223,7 +223,7 @@ app.post('/api/content/:id/visit', (req, res) => {
   db.query(sqlQuery, (error, results) => {
     if (error) {
       console.error(error);
-      res.status(500).json({ error: 'Si è verificato un errore durante l\'aggiornamento delle visite.' });
+      res.status(500).json({ error: 'Si è verificato un errore durante in aggiornamento delle visite.' });
     } else {
       res.sendStatus(200);
     }

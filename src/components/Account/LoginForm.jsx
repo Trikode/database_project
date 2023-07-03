@@ -102,14 +102,15 @@ function LoginForm() {
           user_id: user.id,
           timestamp: timestamp,
         };
-        db.query("INSERT INTO lista_log SET ?", log, (error, result) => {
+        db.query("INSERT INTO lista_log SET ?", log, (error, res) => {
           if (error) {
-            // Gestisci l'errore di inserimento del log
+            console.error(error);
+            res.status(500).json({ error: 'Si è verificato un errore in aggiornamento delle visite.' });
+          
           } else {
-            // Il log è stato inserito con successo
+            res.sendStatus(200);
           }
         });
-
       } else {
         console.log("Password does not match");
         setPasswordError("The password is incorrect");
