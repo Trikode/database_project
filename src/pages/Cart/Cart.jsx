@@ -88,47 +88,50 @@ const Cart = () => {
       <Navbar />
       {cartOverlay ? (
         <div className="addressForm">
-          <input
-            type="county"
-            class="Cart-form-control"
-            id="cartInputCounty"
-            placeholder="Nome"
-          />
+          <div className="containerAddressForm">
+            <input
+              type="county"
+              class="Cart-form-control adressInput"
+              id="cartInputCounty"
+              placeholder="Nome"
+            />
 
-          <input
-            type="country"
-            class="Cart-form-control"
-            id="cartInputCountry"
-            placeholder="Cognome"
-          />
+            <input
+              type="country"
+              class="Cart-form-control adressInput"
+              id="cartInputCountry"
+              placeholder="Cognome"
+            />
 
-          <input
-            type="street"
-            class="Cart-form-control"
-            id="autocomplete"
-            placeholder="Indirizzo"
-          />
+            <input
+              type="street"
+              class="Cart-form-control adressInput"
+              id="autocomplete"
+              placeholder="Indirizzo"
+            />
 
-          <input
-            type="city"
-            class="Cart-form-control"
-            id="cartInputCity"
-            placeholder="Città"
-          />
+            <input
+              type="city"
+              class="Cart-form-control adressInput"
+              id="cartInputCity"
+              placeholder="Città"
+            />
 
-          <input
-            type="state"
-            class="Cart-form-control"
-            id="cartInputState"
-            placeholder="Provincia"
-          />
+            <input
+              type="state"
+              class="Cart-form-control adressInput"
+              id="cartInputState"
+              placeholder="Provincia"
+            />
 
-          <input
-            type="zip"
-            class="Cart-form-control"
-            id="cartInputZip"
-            placeholder="CAP"
-          />
+            <input
+              type="zip"
+              class="Cart-form-control adressInput"
+              id="cartInputZip"
+              placeholder="CAP"
+            />
+            <button class="CartPay-btn">Add Adress</button>
+          </div>
         </div>
       ) : (
         <div class="CartContainer">
