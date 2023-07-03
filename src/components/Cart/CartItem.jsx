@@ -8,18 +8,16 @@ const CartItem = (props) => {
         <tbody>
           <tr>
             <td>
-              <img
-                src={props.img}
-                alt=""
-                class="CartFull-width"
-              ></img>
+              <img src={props.img} alt="" class="CartFull-width"></img>
             </td>
             <td>
-              <br /> <span class="CartThin">Fjällräven</span>
+              <br /> <span class="CartThin">{props.name}</span>
               <br />
-              Vintage Backpack
               <br />{" "}
-              <span class="CartThin small"> Color: {props.clor}, Size: {props.size}</span>
+              <span class="CartThin small">
+                {" "}
+                Color: {props.color}, Size: {props.size}
+              </span>
             </td>
           </tr>
           <tr>

@@ -14,6 +14,14 @@ import CartItem from "../../components/Cart/CartItem";
 const Cart = () => {
   const { currentUser } = useLiveItems();
   const [deliveries, setDeliveries] = useState([]);
+  const [carts, setCarts] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:3308/api/carts?userId=${currentUser.id_user}`)
+      .then((response) => response.json())
+      .then((data) => setCarts(data))
+      .catch((error) => console.error("Error:", error));
+  }, [currentUser.id_user]);
   useEffect(() => {
     fetch("http://localhost:3308/api/deliveries")
       .then((response) => response.json())
@@ -31,12 +39,18 @@ const Cart = () => {
             <div class="CartOrder-info-content">
               <h2>Riepilogo Ordine</h2>
               <div className="CartItemsContainer">
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                <CartItem />
-                </div>
+                {carts.map((item) => {
+                  return (
+                    <CartItem
+                      img={item.image_url}
+                      name={item.name}
+                      size={item.size}
+                      color={item.color}
+                      price={item.price}
+                    />
+                  );
+                })}
+              </div>
 
               <div class="CartLine"></div>
               <div class="CartTotal">
