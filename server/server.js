@@ -129,6 +129,38 @@ app.get('/api/most-visited', (req, res) => {
   });
 });
 
+// GET per Gli Accessi (ARES)
+
+app.get('/api/access-logs/total', (req, res) => {
+  // Query SQL per selezionare tutti gli accessi alla WebApp
+  const sqlQuery = 'SELECT COUNT(*) AS total FROM lista_log WHERE FK_id_tipo_log = 1;';
+
+  db.query(sqlQuery, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Si è verificato un errore durante il recupero del numero delle visite.' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
+// // // GET per Gli Accessi 2 (ARES)
+// app.get("/api/access-logs/total", async (req, res) => {
+//   try {
+//     const results = await db.query(
+//       "SELECT COUNT(*) AS total FROM lista_log WHERE FK_id_tipo_log = 1;",
+//     );
+//     res.json(results);
+//   } catch (error) {
+//     console.error("Error fetching LOGS:", error);
+//     res.status(500).json({ error: "Error fetching LOGS" });
+//   }
+// });
+
+
+
+
 
 // POST
 app.post("/api/register", async (req, res) => {

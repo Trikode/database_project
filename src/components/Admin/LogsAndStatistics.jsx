@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-const UserAccessLogs = ({ userId, setAccessLogs }) => {
-  const [accessLogs,] = useState([]);
+const UserAccessLogs = ({ userId }) => {
+  const [accessLogs, setAccessLogs] = useState([]);
 
   useEffect(() => {
     if (userId) {
@@ -30,14 +30,27 @@ const UserAccessLogs = ({ userId, setAccessLogs }) => {
 const AppStatistics = () => {
   const [accessLogs, setAccessLogs] = useState([]);
 
+/*
+useEffect(() => {
+    if (userId) {
+      fetch(`http://localhost:3308/api/access-logs/user?userId=${userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAccessLogs(data);
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  }, [userId, setAccessLogs]);
+*/
+
   useEffect(() => {
     const fetchAccessLogs = async () => {
       try {
-        const response = await fetch('/api/access-logs');
+        const response = await fetch("/api/access-logs/total");
         const data = await response.json();
         setAccessLogs(data);
       } catch (error) {
-        console.error('Errore durante il recupero dei log di accesso:', error);
+        console.error("Errore durante il recupero dei log di accesso:", error);
       }
     };
 
@@ -72,7 +85,9 @@ const LogsAndStatistics = () => {
 
   return (
     <div>
-      <h3>Consultazione numero di accessi: inserire ID utente per informazioni</h3>
+      <h3>
+        Consultazione numero di accessi: <br /> inserire ID utente per informazioni.
+      </h3>
       <input
         type="text"
         value={userId}
