@@ -105,12 +105,14 @@ function LoginForm() {
     const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
     setOtp(generatedOtp);
     console.log(generatedOtp);
+    console.log(emailPswReset);
     emailjs
       .send(
         emailServiceId,
         emailTemplateId,
         {
-          to_email: { emailPswReset },
+          to_email: emailPswReset,
+          to_name: "User",
           OTP: generatedOtp,
           message: "Hello, this is a test email!",
         },

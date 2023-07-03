@@ -86,6 +86,21 @@ app.get("/api/deliveries", async (req, res) => {
   }
 });
 
+app.get("/api/carts", async (req, res) => {
+  const userId = req.query.userId;
+  try {
+    const results = await db.query(
+      "SELECT c.id_cart, p.name, p.price, c.quantity FROM carts c JOIN products p ON c.id_product = p.id_product WHERE c.id_user = ?",
+      [userId]
+    );
+    res.json(results);
+  } catch (error) {
+    console.error("Error fetching carts:", error);
+    res.status(500).json({ error: "Error fetching carts" });
+  }
+});
+
+
 
 // POST
 app.post("/api/register", async (req, res) => {
@@ -167,6 +182,22 @@ app.post("/api/newproduct", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+// POST
+app.post("/api/addtocart", async (req, res) => {
+  const { id_user, id_product, quantity } = req.body;
+  try {
+    await db.query(
+      "INSERT INTO carts (id_user, id_product, quantity) VALUES (?, ?, ?)",
+      [id_user, id_product, quantity]
+    );
+    res.json({ message: "Product added to cart successfully" });
+  } catch (error) {
+    console.error("Error executing MySQL query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 // PUT
 app.put("/api/reset-password", async (req, res) => {

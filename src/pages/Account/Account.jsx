@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 // import UserList from "../../components/Account/Testaccount";
 
 const Account = () => {
-  const [isActive, setIsActive] = useState(true);
-  const { isLogged, setIsLogged, currentUser } = useLiveItems();
+  const { isLogged, setIsLogged, currentUser, isActive, setIsActive } =
+    useLiveItems();
   const [users, setUsers] = useState([]);
   const [uF_name, setUF_name] = useState("");
   const [uL_name, setUL_name] = useState("");
