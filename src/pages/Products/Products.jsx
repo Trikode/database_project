@@ -96,25 +96,18 @@ const Products = () => {
   }
 
   function isProductMatchFilters(product) {
-    // Check if the product matches the selected gender
     if (selectedGender !== "all" && product.genre !== selectedGender) {
       return false;
     }
-
-    // Check if the product matches the selected types
     if (selectedTypes.length > 0 && !selectedTypes.includes(product.type)) {
       return false;
     }
-
-    // Check if the product matches the selected price range
     if (
       selectedPriceRange.length > 0 &&
       !selectedPriceRange.some((range) => isPriceInRange(product.price, range))
     ) {
       return false;
     }
-
-    // Check if the product matches the selected colors
     if (selectedColors.length > 0 && !selectedColors.includes(product.color)) {
       return false;
     }
