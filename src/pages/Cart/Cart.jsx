@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import { useLiveItems } from "../../App";
 import TopReminder from "../../components/TopReminder/TopReminder";
 import CartAdress from "../../components/Cart/CartAdress";
+import CartItem from "../../components/Cart/CartItem";
 
 const Cart = () => {
   const { currentUser } = useLiveItems();
@@ -29,94 +30,14 @@ const Cart = () => {
           <div class="CartOrder-info">
             <div class="CartOrder-info-content">
               <h2>Riepilogo Ordine</h2>
-              <div class="CartLine"></div>
-              <table class="CartOrder-table">
-                <tbody>
-                  <tr>
-                    <td>
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/nbr4koso8dpoggs/6136C1p5FjL._SL1500_.jpg"
-                        alt=""
-                        class="CartFull-width"
-                      ></img>
-                    </td>
-                    <td>
-                      <br /> <span class="CartThin">Nike</span>
-                      <br /> Free Run 3.0 Women
-                      <br />{" "}
-                      <span class="CartThin small">
-                        {" "}
-                        Color: Grey/Orange, Size: 10.5
-                        <br />
-                        <br />
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="CartPrice">$99.95</div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="CartLine"></div>
-              <table class="CartOrder-table">
-                <tbody>
-                  <tr>
-                    <td>
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/nbr4koso8dpoggs/6136C1p5FjL._SL1500_.jpg"
-                        alt=""
-                        class="CartFull-width"
-                      ></img>
-                    </td>
-                    <td>
-                      <br /> <span class="CartThin">Fjällräven</span>
-                      <br />
-                      Vintage Backpack
-                      <br />{" "}
-                      <span class="CartThin small">
-                        {" "}
-                        Color: Olive, Size: 20L
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="CartPrice">$235.95</div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="CartLine"></div>
-              <table class="CartOrder-table">
-                <tbody>
-                  <tr>
-                    <td>
-                      <img
-                        src="https://dl.dropboxusercontent.com/s/nbr4koso8dpoggs/6136C1p5FjL._SL1500_.jpg"
-                        alt=""
-                        class="CartFull-width"
-                      ></img>
-                    </td>
-                    <td>
-                      <br /> <span class="CartThin">Monobento</span>
-                      <br />
-                      Double Lunchbox
-                      <br />{" "}
-                      <span class="CartThin small">
-                        {" "}
-                        Color: Pink, Size: Medium
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="CartPrice">$25.95</div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div className="CartItemsContainer">
+                <CartItem />
+                <CartItem />
+                <CartItem />
+                <CartItem />
+                <CartItem />
+                </div>
+
               <div class="CartLine"></div>
               <div class="CartTotal">
                 <span class="CartFloatLeft">
