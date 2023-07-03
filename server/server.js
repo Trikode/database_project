@@ -101,6 +101,21 @@ app.get("/api/carts", async (req, res) => {
 });
 
 
+// GET per i contenuti più visitati (ARES)
+app.get('/api/most-visited', (req, res) => {
+  // Query SQL per selezionare i contenuti più visualizzati
+  const sqlQuery = 'SELECT * FROM users ORDER BY visit_count DESC LIMIT 10';
+
+  db.query(sqlQuery, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Si è verificato un errore durante il recupero dei contenuti più visitati.' });
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 
 // POST
 app.post("/api/register", async (req, res) => {
@@ -198,6 +213,22 @@ app.post("/api/addtocart", async (req, res) => {
   }
 });
 
+// Questo aggiorna il conteggio delle visualizzazioni (ARES)
+app.post('/api/content/:id/visit', (req, res) => {
+  const contentId = req.params.id;
+
+  // Questo incrementa il conteggio delle visualizzazioni
+  const sqlQuery = `UPDATE users SET visit_count = visit_count + 1 WHERE id_user = ${contentId}`;
+
+  db.query(sqlQuery, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Si è verificato un errore durante l\'aggiornamento delle visite.' });
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
 
 // PUT
 app.put("/api/reset-password", async (req, res) => {
