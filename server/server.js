@@ -90,7 +90,7 @@ app.get("/api/carts", async (req, res) => {
   const userId = req.query.userId;
   try {
     const results = await db.query(
-      "SELECT c.id_cart, p.name,p.price, col.color, siz.size, img.image_url FROM carts c JOIN products p ON c.id_product = p.id_product JOIN colors col ON p.color = col.id_color JOIN sizes siz ON p.size = siz.id_size JOIN images img ON p.id_image = img.id_image WHERE c.id_user = ?",
+      "SELECT c.id_cart, p.name,p.price,c.quantity, col.color, siz.size, img.image_url FROM carts c JOIN products p ON c.id_product = p.id_product JOIN colors col ON p.color = col.id_color JOIN sizes siz ON p.size = siz.id_size JOIN images img ON p.id_image = img.id_image WHERE c.id_user = ?",
       [userId]
     );
     res.json(results);
