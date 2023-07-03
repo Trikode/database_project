@@ -213,7 +213,7 @@ app.post("/api/addtocart", async (req, res) => {
   }
 });
 
-// Questo aggiorna il conteggio delle visualizzazioni (ARES)
+// Conteggio delle visualizzazioni (ARES)
 app.post('/api/content/:id/visit', (req, res) => {
   const contentId = req.params.id;
 

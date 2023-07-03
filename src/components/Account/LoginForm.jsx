@@ -93,6 +93,23 @@ function LoginForm() {
         user?.role_id === 1 ? redirectToPage("/admin") : redirectToPage("/");
         setEmail("");
         setPassword("");
+
+        // Registrazione accessi alla WebApp in lista_log
+
+        const db = require("./db.js");
+        const timestamp = new Date(); // Ottieni la data e l'ora correnti
+        const log = {
+          user_id: user.id,
+          timestamp: timestamp,
+        };
+        db.query("INSERT INTO lista_log SET ?", log, (error, result) => {
+          if (error) {
+            // Gestisci l'errore di inserimento del log
+          } else {
+            // Il log è stato inserito con successo
+          }
+        });
+
       } else {
         console.log("Password does not match");
         setPasswordError("The password is incorrect");
