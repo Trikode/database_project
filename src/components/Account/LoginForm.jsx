@@ -68,24 +68,24 @@ function LoginForm() {
 
   let redirectToPage = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     const user = users.find((user) => user.email === email);
-
+  
     if (!user) {
       console.log("User not found");
       setPasswordError("User not found!");
       setPassword("");
       return;
     }
-
-    bcrypt.compare(password, user.password, (err, result) => {
+  
+    bcrypt.compare(password, user.password, async (err, result) => {
       if (err) {
         console.error("Error comparing passwords:", err);
         return;
       }
-
+  
       if (result) {
         console.log("Password match");
         setIsLogged(true);
@@ -93,6 +93,24 @@ function LoginForm() {
         user?.role_id === 1 ? redirectToPage("/admin") : redirectToPage("/");
         setEmail("");
         setPassword("");
+  
+        try {
+          const response = await fetch("http://localhost:3308/api/access-logs", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user_id: user.id_user }),
+          });
+  
+          if (response.ok) {
+            console.log("Access log updated successfully");
+          } else {
+            console.error("Failed to update access log");
+          }
+        } catch (error) {
+          console.error("Error updating access log:", error);
+        }
       } else {
         console.log("Password does not match");
         setPasswordError("The password is incorrect");
@@ -100,7 +118,7 @@ function LoginForm() {
       }
     });
   };
-
+  
   function sendEmail() {
     const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
     setOtp(generatedOtp);
