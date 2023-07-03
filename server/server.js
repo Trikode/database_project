@@ -99,6 +99,19 @@ app.get("/api/carts", async (req, res) => {
     res.status(500).json({ error: "Error fetching carts" });
   }
 });
+app.get("/api/access-logs/user", async (req, res) => {
+  const userId = req.query.userId;
+  try {
+    const results = await db.query(
+      "SELECT data_log FROM lista_log lg WHERE lg.FK_id_user = ?",
+      [userId]
+    );
+    res.json(results);
+  } catch (error) {
+    console.error("Error fetching carts:", error);
+    res.status(500).json({ error: "Error fetching carts" });
+  }
+});
 
 
 // GET per i contenuti più visitati (ARES)
