@@ -17,6 +17,7 @@ const Cart = () => {
   const [carts, setCarts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartOverlay, setCartOverlay] = useState(false);
+  const [selectedDelivery, setSelectedDelivery] = useState(null);
 
   useEffect(() => {
     fetch(`http://localhost:3308/api/carts?userId=${currentUser.id_user}`)
@@ -36,6 +37,49 @@ const Cart = () => {
       .then((data) => setDeliveries(data))
       .catch((error) => console.error("Error:", error));
   }, []);
+
+  const handleCheckout = () => {
+    if (selectedDelivery) {
+      // Create the order in the orders table
+      fetch("http://localhost:3308/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id_user: currentUser.id_user,
+          order_date: new Date().toISOString().split("T")[0],
+          id_delivery: selectedDelivery,
+          total_price: totalPrice,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          const orderId = data.insertId;
+          // Insert items into the orders_products table
+          carts.forEach((item) => {
+            fetch("http://localhost:3308/api/order_products", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                id_order: orderId,
+                id_product: item.id_product,
+                quantity: item.quantity,
+                total_price: item.price,
+              }),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                // Handle successful insertion if needed
+              })
+              .catch((error) => console.error("Error:", error));
+          });
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  };
 
   // const user = deliveries.find((user) => user.id_user === currentUser.id_user);
   return (
@@ -101,6 +145,7 @@ const Cart = () => {
                         size={item.size}
                         color={item.color}
                         price={item.price}
+                        quantity={item.quantity}
                       />
                     );
                   })}
