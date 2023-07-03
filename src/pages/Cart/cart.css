@@ -97,12 +97,22 @@
 .CartFull-width {
   width: 100%;
 }
+.CartPay-btn {
+  font-size: 1.2rem;
+  font-weight: bolder;
+  background-color: black;
+  color: white;
+  width: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  cursor: pointer;
+  border: transparent;
+}
 
 .CartPay-btn:hover {
-  background: #22a877;
-  color: #eee;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  background-color: rgba(0, 0, 0, 0.833);
 }
 
 .CartTotal {
@@ -178,4 +188,69 @@
   ); /* oppure usa 'flex-direction: column;' per un layout a colonna */
   gap: 20px; /* Aggiungi uno spazio tra gli elementi, se necessario */
   margin-bottom: 5rem;
+}
+.add-adress {
+  margin-top: 1rem;
+}
+
+.CartOverlay {
+  background-color: #de1d1d50;
+  z-index: 10;
+}
+.addressForm {
+  height: 70vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5rem;
+}
+
+.Cart-form-control{
+  width: 15rem;
+}
+
+.containerAddressForm {
+  background-color: #286095;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  margin-top: 1rem;
+  width: 25vw;
+  border-radius: 25px;
+  padding: 1rem;
+}
+
+.form-group {
+  margin: 30px auto;
+  width: 450px;
+}
+
+.form-control {
+  float: left;
+}
+
+#inputStreet {
+  width: 100%;
+}
+
+#inputCity {
+  width: 50%;
+}
+
+#inputState {
+  width: 15%;
+}
+
+#inputZip {
+  width: 28%;
+}
+
+#inputCounty {
+  width: 45%;
+}
+
+#inputCountry {
+  width: 50%;
 }
