@@ -164,7 +164,26 @@ app.post("/api/register", async (req, res) => {
 //   }
 // });
 
+// POST per l'aggiornamento dei log di accesso
+app.post('/api/access-logs', (req, res) => {
+  const { user_id } = req.body;
+  const timestamp = new Date();
 
+  const log = {
+    FK_id_user: user_id,
+    data_log: timestamp,
+    FK_id_tipo_log:1,
+  };
+
+  db.query('INSERT INTO lista_log SET ?', log, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Si è verificato un errore nell\'aggiornamento dei log di accesso.' });
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
 
 app.post("/api/newproduct", async (req, res) => {
   const { type, name, size, color, genre, quantity, price, image } = req.body;
