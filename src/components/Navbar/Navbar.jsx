@@ -4,15 +4,17 @@ import "./navbar.css";
 import { BsSearch } from "react-icons/bs";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { RiAccountCircleLine } from "react-icons/ri";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BurgerModal from "./BurgerModal";
 import Logo from "../../assets/logo2.svg";
 import { useLiveItems } from "../../App";
 
 const Navbar = () => {
-  const { isLogged, liveItems, currentUser } = useLiveItems();
+  const { isLogged, liveItems, currentUser, setSearchQuery, searchQuery } =
+    useLiveItems();
   const [users, setUsers] = useState([]);
   const [displayName, setDisplayName] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:3308/api/users")
@@ -38,6 +40,9 @@ const Navbar = () => {
     justifyContent: "center",
     alignItems: "center",
   };
+  const handleSearch = () => {
+    navigate("/products");
+  };
 
   return (
     <nav className="navbar">
@@ -60,8 +65,15 @@ const Navbar = () => {
       </div>
       <div className="nav-right">
         <div className="searchbar">
-          <input type="text" placeholder="Search" />
-          <div className="searchicon">
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onSubmit={handleSearch}
+          />
+
+          <div className="searchicon" onClick={() => handleSearch()}>
             <BsSearch />
           </div>
         </div>

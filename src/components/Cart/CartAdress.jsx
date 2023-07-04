@@ -1,19 +1,27 @@
 import React from "react";
 
-const CartAdress = (props) => {
+const CartAddress = (props) => {
+  const handleRadioChange = () => {
+    props.onChange(props.id);
+  };
+
   return (
-    <>
-      <div className="CartCredit-info-content">
-        <input type="radio" id="opzione1" name="opzione" value="opzione1" />
-        <label for="opzione1">Indirizzo fai che è incrementale</label>
-        <p>Nome: {props.nome}</p>
-        <p>Cognome: {props.cognome}</p>
-        <p>Indirizzo: {props.indirizzo}</p>
-        <p>Città: {props.città}</p>
-        <p>CAP: {props.cap}</p>
-      </div>
-    </>
+    <div className="CartCredit-info-content">
+      <input
+        type="radio"
+        id={props.id}
+        name="opzione"
+        value={props.id}
+        onChange={handleRadioChange}
+      />
+      <label htmlFor={props.id}>Indirizzo fai che è incrementale</label>
+      <p>Nome: {props.nome}</p>
+      <p>Cognome: {props.cognome}</p>
+      <p>Indirizzo: {props.indirizzo}</p>
+      <p>Città: {props.città}</p>
+      <p>CAP: {props.cap}</p>
+    </div>
   );
 };
 
-export default CartAdress;
+export default CartAddress;

@@ -21,7 +21,7 @@ const Provider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
   const [currentProduct, setCurrentProduct] = useState("");
   const [currentColour, setCurrentColour] = useState("");
-
+  const [searchQuery, setSearchQuery] = useState("");
   const exposed = {
     liveItems,
     setLiveItems,
@@ -37,6 +37,8 @@ const Provider = ({ children }) => {
     setCurrentProduct,
     currentColour,
     setCurrentColour,
+    searchQuery,
+    setSearchQuery,
   };
   return (
     <itemsContext.Provider value={exposed}>{children}</itemsContext.Provider>

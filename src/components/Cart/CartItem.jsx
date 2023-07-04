@@ -13,6 +13,7 @@ const CartItem = (props) => {
             <td>
               <br /> <span class="CartThin">{props.name}</span>
               <br />
+              Quantity: {props.quantity}
               <br />{" "}
               <span class="CartThin small">
                 {" "}

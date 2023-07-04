@@ -3,8 +3,7 @@ import { useState, useEffect } from "react";
 import "../../pages/Products/products.css";
 import { IoIosArrowDown } from "react-icons/io";
 import { IoIosArrowUp } from "react-icons/io";
-
-//sections
+import { useLiveItems } from "../../App";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
 import TopReminder from "../../components/TopReminder/TopReminder";
@@ -12,6 +11,7 @@ import ProductCard from "../../components/Products/ProductCard";
 // import ProductSidebar from "../../components/Products/ProductSidebar";
 
 const Products = () => {
+  const { searchQuery } = useLiveItems();
   const [toggle1, setToggle1] = useState(false);
   const [toggle2, setToggle2] = useState(false);
   const [toggle3, setToggle3] = useState(false);
@@ -20,7 +20,6 @@ const Products = () => {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [selectedPriceRange, setSelectedPriceRange] = useState([]);
   const [selectedColors, setSelectedColors] = useState([]);
-
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -109,6 +108,10 @@ const Products = () => {
       return false;
     }
     if (selectedColors.length > 0 && !selectedColors.includes(product.color)) {
+      return false;
+    }
+    const searchfilter = searchQuery.trim().toLowerCase();
+    if (searchfilter && !product.name.toLowerCase().includes(searchfilter)) {
       return false;
     }
 
