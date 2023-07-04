@@ -90,7 +90,7 @@ app.get("/api/carts", async (req, res) => {
   const userId = req.query.userId;
   try {
     const results = await db.query(
-      "SELECT c.id_cart, p.name,p.price,c.quantity, col.color, siz.size, img.image_url FROM carts c JOIN products p ON c.id_product = p.id_product JOIN colors col ON p.color = col.id_color JOIN sizes siz ON p.size = siz.id_size JOIN images img ON p.id_image = img.id_image WHERE c.id_user = ?",
+      "SELECT c.id_cart,c.id_product, p.name,p.price,c.quantity, col.color, siz.size, img.image_url FROM carts c JOIN products p ON c.id_product = p.id_product JOIN colors col ON p.color = col.id_color JOIN sizes siz ON p.size = siz.id_size JOIN images img ON p.id_image = img.id_image WHERE c.id_user = ?",
       [userId]
     );
     res.json(results);
@@ -217,7 +217,6 @@ app.post("/api/newproduct", async (req, res) => {
   }
 });
 
-// POST
 app.post("/api/addtocart", async (req, res) => {
   const { id_user, id_product, quantity } = req.body;
   try {
@@ -249,6 +248,56 @@ app.post('/api/content/:id/visit', (req, res) => {
   });
 });
 
+app.post("/api/orders", async (req, res) => {
+  const { id_user, order_date, id_delivery, total_price } = req.body;
+
+  try {
+    const result = await db.query(
+      "INSERT INTO orders (id_user, order_date, id_delivery, total_price) VALUES (?, ?, ?, ?)",
+      [id_user, order_date, id_delivery, total_price]
+    );
+
+    res.json({ insertId: result.insertId });
+  } catch (error) {
+    console.error("Error executing MySQL query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.post("/api/order_products", async (req, res) => {
+  const { id_order, id_product, quantity } = req.body;
+
+  try {
+    await db.query(
+      "INSERT INTO orders_products (id_order, id_product, quantity) VALUES (?, ?, ?)",
+      [id_order, id_product, quantity]
+    );
+
+    res.json({ message: "Order product inserted successfully" });
+  } catch (error) {
+    console.error("Error executing MySQL query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// POST for adding a new delivery address
+app.post("/api/deliveries", async (req, res) => {
+  const { id_user, first_name, last_name, address, city, cap } = req.body;
+
+  try {
+    await db.query(
+      "INSERT INTO deliveries (id_user, first_name, last_name, adress, city, cap) VALUES (?, ?, ?, ?, ?, ?)",
+      [id_user, first_name, last_name, address, city, cap]
+    );
+
+    res.json({ message: "Delivery address added successfully" });
+  } catch (error) {
+    console.error("Error executing MySQL query:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
 // PUT
 app.put("/api/reset-password", async (req, res) => {
   const { email, newPassword } = req.body;
@@ -268,6 +317,21 @@ app.put("/api/reset-password", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+//DELETE
+app.delete("/api/carts", (req, res) => {
+  const { id_user } = req.body;
+
+  db.query("DELETE FROM carts WHERE id_user = ?", [id_user], (err, result) => {
+    if (err) {
+      console.error("Error deleting carts:", err);
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
