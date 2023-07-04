@@ -99,6 +99,19 @@ app.get("/api/carts", async (req, res) => {
     res.status(500).json({ error: "Error fetching carts" });
   }
 });
+app.get("/api/access-logs/user", async (req, res) => {
+  const userId = req.query.userId;
+  try {
+    const results = await db.query(
+      "SELECT data_log FROM lista_log lg WHERE lg.FK_id_user = ?",
+      [userId]
+    );
+    res.json(results);
+  } catch (error) {
+    console.error("Error fetching carts:", error);
+    res.status(500).json({ error: "Error fetching carts" });
+  }
+});
 
 
 // GET per i contenuti più visitati (ARES)
@@ -115,6 +128,39 @@ app.get('/api/most-visited', (req, res) => {
     }
   });
 });
+
+// GET per Gli Accessi (ARES)
+
+app.get('/api/access-logs/total', (req, res) => {
+  // Query SQL per selezionare tutti gli accessi alla WebApp
+  const sqlQuery = 'SELECT COUNT(*) AS total FROM lista_log WHERE FK_id_tipo_log = 1;';
+
+  db.query(sqlQuery, (error, results) => {
+    if (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Si è verificato un errore durante il recupero del numero delle visite.' });
+    } else {
+      console.log(results);
+      res.json(results);
+    }
+  });
+});
+
+// // GET per Gli Accessi 2 (ARES)
+// app.get("/api/access-logs/total", async (req, res) => {
+//   try {
+//     const results = await db.query(
+//       "SELECT COUNT(*) AS total FROM lista_log WHERE FK_id_tipo_log = 1;",
+//     );
+//     res.json(results);
+//   } catch (error) {
+//     console.error("Error fetching LOGS:", error);
+//     res.status(500).json({ error: "Error fetching LOGS" });
+//   }
+// });
+
+
+
 
 
 // POST

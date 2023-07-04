@@ -7,6 +7,7 @@ import AdminSidebar from "../../components/Admin/AdminSidebar";
 import AdminWarehouse from "../../components/Admin/AdminWarehouse";
 import TopReminder from "../../components/TopReminder/TopReminder";
 import AddProductForm from "../../components/Admin/AddProductForm";
+import LogsAndStatistics from "../../components/Admin/LogsAndStatistics";
 
 const Admin = () => {
   const [isReport, setReport] = useState(true);
@@ -30,6 +31,9 @@ const Admin = () => {
           {/* {isReport ? <AdminReport /> : () => setReport(false)}
           {isNew ? <AdminNew /> : () => setNew(false)}*/}
           {isWare ? <AdminWarehouse /> : () => setWare(false)}
+          <div className="logsAndStatistics">
+            <LogsAndStatistics />
+          </div>
         </div>
       </div>
     </>

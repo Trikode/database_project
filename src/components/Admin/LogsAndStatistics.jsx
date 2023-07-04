@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+
 
 const UserAccessLogs = ({ userId }) => {
   const [accessLogs, setAccessLogs] = useState([]);
 
   useEffect(() => {
-    const fetchAccessLogs = async () => {
-      try {
-        const response = await axios.get(`/api/access-logs/user/${userId}`);
-        setAccessLogs(response.data);
-      } catch (error) {
-        console.error('Errore durante il recupero dei log di accesso:', error);
-      }
-    };
-
-    fetchAccessLogs();
-  }, [userId]);
+    if (userId) {
+      fetch(`http://localhost:3308/api/access-logs/user?userId=${userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAccessLogs(data);
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  }, [userId, setAccessLogs]);
 
   return (
     <div>
       <h2>Log di accesso per l'utente {userId}</h2>
-      {accessLogs.map((log) => (
-        <div key={log.id_log}>
-          <p>Data e ora: {log.timestamp}</p>
+      {accessLogs.map((log, idx) => (
+        <div key={idx}>
+          <p>Data e ora: {log.data_log}</p>
           {/* Altre informazioni dei log */}
         </div>
       ))}
@@ -33,18 +31,49 @@ const UserAccessLogs = ({ userId }) => {
 const AppStatistics = () => {
   const [accessLogs, setAccessLogs] = useState([]);
 
+
+  // useEffect(() => {
+  //   try {
+  //     fetch(`http://localhost:3308/api/access-logs/total`)
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setAccessLogs(data);
+  //       });
+  //   } catch (error) {
+  //     console.error("Errore durante il recupero dei log di accesso:", error);
+  //   }
+  // }, []);
+  
+
+
   useEffect(() => {
     const fetchAccessLogs = async () => {
       try {
-        const response = await axios.get('/api/access-logs');
-        setAccessLogs(response.data);
+        const response = await fetch("/api/access-logs/total");
+        const data = await response.json();
+        setAccessLogs(data);
       } catch (error) {
-        console.error('Errore durante il recupero dei log di accesso:', error);
+        console.error("Errore durante il recupero dei log di accesso:", error);
       }
     };
 
     fetchAccessLogs();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchAccessLogs = async () => {
+  //     try {
+  //       const response = await fetch("/api/access-logs/total");
+  //       const data = await response.json();
+  //       setAccessLogs(data);
+  //     } catch (error) {
+  //       console.error("Errore durante il recupero dei log di accesso:", error);
+  //     }
+  //   };
+
+  //   fetchAccessLogs();
+  // }, []);
+
 
   const totalAccesses = accessLogs.length;
 
@@ -58,12 +87,37 @@ const AppStatistics = () => {
 };
 
 const LogsAndStatistics = () => {
-  const userId = 123; // ID dell'utente desiderato
+  const [userId, setUserId] = useState("");
+  const [accessLogs, setAccessLogs] = useState([]);
+
+  useEffect(() => {
+    if (userId) {
+      fetch(`http://localhost:3308/api/access-logs/user?userId=${userId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAccessLogs(data);
+        })
+        .catch((error) => console.error("Error:", error));
+    }
+  }, [userId]);
 
   return (
     <div>
-      <UserAccessLogs userId={userId} />
-      <AppStatistics />
+      <h3>
+        Consultazione numero di accessi: <br /> inserire ID utente per informazioni.
+      </h3>
+      <input
+        type="text"
+        value={userId}
+        onChange={(e) => setUserId(e.target.value)}
+        placeholder="Inserisci ID utente"
+      />
+      {userId && (
+        <>
+          <UserAccessLogs userId={userId} setAccessLogs={setAccessLogs} />
+          <AppStatistics />
+        </>
+      )}
     </div>
   );
 };

@@ -4,7 +4,6 @@ const MostVisitedContent = () => {
   const [mostVisitedContent, setMostVisitedContent] = useState([]);
 
   useEffect(() => {
-    // Questo aggiorna il conteggio delle visite
     const updateVisitCount = async (contentId) => {
       try {
         await fetch(`/api/content/${contentId}/visit`, { method: 'POST' });
@@ -13,7 +12,6 @@ const MostVisitedContent = () => {
       }
     };
 
-    // Questo recupera gli oggetti più visitati
     const fetchMostVisitedContent = async () => {
       try {
         const response = await fetch('/api/most-visited');
@@ -24,18 +22,13 @@ const MostVisitedContent = () => {
       }
     };
 
-    /*
-    // Simula una visita a un contenuto specifico
     const simulateContentVisit = async () => {
-      // Sostituisci 'contentId' con l'ID effettivo del contenuto visitato
       const contentId = 1;
       await updateVisitCount(contentId);
       fetchMostVisitedContent();
     };
 
-    // Simula una visita iniziale per ottenere i contenuti più visitati all'avvio
     simulateContentVisit();
-    */
   }, []);
 
   return (
@@ -51,4 +44,5 @@ const MostVisitedContent = () => {
     </div>
   );
 };
+
 export default MostVisitedContent;
