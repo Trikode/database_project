@@ -140,12 +140,13 @@ app.get('/api/access-logs/total', (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'Si è verificato un errore durante il recupero del numero delle visite.' });
     } else {
+      console.log(results);
       res.json(results);
     }
   });
 });
 
-// // // GET per Gli Accessi 2 (ARES)
+// // GET per Gli Accessi 2 (ARES)
 // app.get("/api/access-logs/total", async (req, res) => {
 //   try {
 //     const results = await db.query(
