@@ -13,7 +13,7 @@
     button{
       font-size: 1rem;
     }
-    input{
+    .adminMain input{
         cursor: text ;
     }
     /*----------Main page-------*/
@@ -25,7 +25,7 @@
     }
     
     .P-NCards{
-        background:var(--primary-300);   
+        background:aliceblue;   
         position: absolute;
         padding: 2rem;
         display: flex;

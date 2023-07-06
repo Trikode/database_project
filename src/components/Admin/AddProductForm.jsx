@@ -137,7 +137,6 @@ const AddProductForm = () => {
       }))
     );
 
-    // Insert each product into the database
     Promise.all(
       products.map((product) =>
         fetch("http://localhost:3308/api/newproduct", {
@@ -153,11 +152,12 @@ const AddProductForm = () => {
         Promise.all(responses.map((response) => response.json()))
       )
       .then((data) => {
-        console.log(data); // Handle the response from the server
+        console.log(data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
+    alert("products added succesfuly");
   };
 
   return (

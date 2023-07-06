@@ -99,6 +99,22 @@ app.get("/api/carts", async (req, res) => {
     res.status(500).json({ error: "Error fetching carts" });
   }
 });
+app.get("/api/orders", async (req, res) => {
+  const userId = req.query.userId;
+  try {
+    const results = await db.query(
+      " SELECT op.id_order, p.name, s.size, c.color, op.quantity FROM orders o JOIN orders_products op ON o.id_order = op.id_order JOIN products p ON op.id_product = p.id_product JOIN sizes s ON p.size = s.id_size JOIN colors c ON p.color = c.id_color WHERE o.id_user = ?",
+      [userId]
+    );
+    res.json(results);
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+    res.status(500).json({ error: "Error fetching carts" });
+  }
+});
+
+
+
 app.get("/api/access-logs/user", async (req, res) => {
   const userId = req.query.userId;
   try {

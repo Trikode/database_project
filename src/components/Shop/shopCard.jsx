@@ -138,6 +138,7 @@ const ShopCard = () => {
                 style={{ backgroundColor: color }}
                 onClick={() => {
                   setCurrentColour(color);
+                  setSelectedSize("xs");
                 }}
               />
             ))}

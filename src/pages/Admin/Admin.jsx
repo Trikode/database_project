@@ -27,13 +27,10 @@ const Admin = () => {
           addWare={() => setWare(!isWare)}
         />
         <div className="P-NCards">
-          <AddProductForm />
-          {/* {isReport ? <AdminReport /> : () => setReport(false)}
-          {isNew ? <AdminNew /> : () => setNew(false)}*/}
+          {isReport ? <LogsAndStatistics /> : () => setReport(false)}
+          {isNew ? <AddProductForm /> : () => setNew(false)}
           {isWare ? <AdminWarehouse /> : () => setWare(false)}
-          <div className="logsAndStatistics">
-            <LogsAndStatistics />
-          </div>
+          <div className="logsAndStatistics"></div>
         </div>
       </div>
     </>

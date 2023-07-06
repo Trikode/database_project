@@ -15,8 +15,8 @@ const Account = () => {
   const [uF_name, setUF_name] = useState("");
   const [uL_name, setUL_name] = useState("");
   const [uEmail, setUEmail] = useState("");
-  const [uPhone, setUPhone] = useState("");
   const [uRole, setURole] = useState("");
+  const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3308/api/users")
@@ -29,9 +29,16 @@ const Account = () => {
     setUF_name(user?.f_name);
     setUL_name(user?.l_name);
     setUEmail(user?.email);
-    setUPhone(user?.phone_number);
     setURole(user?.role_id);
   }, [users, currentUser]);
+  useEffect(() => {
+    fetch(`http://localhost:3308/api/orders?userId=${currentUser.id_user}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setOrders(data);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, [currentUser.id_user]);
 
   let redirectToPage = useNavigate();
   return (
@@ -65,12 +72,32 @@ const Account = () => {
                 <div>
                   Email: <b>{uEmail}</b>
                 </div>
-                <div>
-                  Phone: <b>{uPhone}</b>
-                </div>
               </div>
             </div>
-            <div className="AcontainerLogged"></div>
+            <div className="AcontainerLogged">
+              {Object.values(
+                orders.reduce((acc, order) => {
+                  if (!acc[order.id_order]) {
+                    acc[order.id_order] = [order];
+                  } else {
+                    acc[order.id_order].push(order);
+                  }
+                  return acc;
+                }, {})
+              ).map((orderGroup) => (
+                <div key={orderGroup[0].id_order}>
+                  <h3>Order ID: {orderGroup[0].id_order}</h3>
+                  {orderGroup.map((order) => (
+                    <div key={order.id_order_product}>
+                      <p>Name: {order.name}</p>
+                      <p>Size: {order.size}</p>
+                      <p>Color: {order.color}</p>
+                      <p>Quantity: {order.quantity}</p>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       ) : (

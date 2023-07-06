@@ -10,7 +10,7 @@ import CartItem from "../../components/Cart/CartItem";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const { currentUser } = useLiveItems();
+  const { currentUser, isLogged } = useLiveItems();
   const [deliveries, setDeliveries] = useState([]);
   const [carts, setCarts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -76,6 +76,7 @@ const Cart = () => {
         setCity("");
         setProvince("");
         setZip("");
+        setCartOverlay(false);
       })
       .catch((error) => {
         console.error("Error adding address:", error);
@@ -83,6 +84,10 @@ const Cart = () => {
   };
 
   const handleCheckout = async () => {
+    if (isLogged === false) {
+      alert("you have to log first");
+      redirectToPage("/account");
+    }
     if (selectedDelivery) {
       try {
         const orderResponse = await fetch("http://localhost:3308/api/orders", {
