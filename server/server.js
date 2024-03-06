@@ -113,8 +113,6 @@ app.get("/api/orders", async (req, res) => {
   }
 });
 
-
-
 app.get("/api/access-logs/user", async (req, res) => {
   const userId = req.query.userId;
   try {
@@ -129,55 +127,48 @@ app.get("/api/access-logs/user", async (req, res) => {
   }
 });
 
-
-// GET per i contenuti più visitati (ARES)
-app.get('/api/most-visited', (req, res) => {
+// GET per i contenuti più visitati
+app.get("/api/most-visited", (req, res) => {
   // Query SQL per selezionare i contenuti più visualizzati
-  const sqlQuery = 'SELECT * FROM users ORDER BY visit_count DESC LIMIT 10';
+  const sqlQuery = "SELECT * FROM users ORDER BY visit_count DESC LIMIT 10";
 
   db.query(sqlQuery, (error, results) => {
     if (error) {
       console.error(error);
-      res.status(500).json({ error: 'Si è verificato un errore durante il recupero dei contenuti più visitati.' });
+      res
+        .status(500)
+        .json({
+          error:
+            "Si è verificato un errore durante il recupero dei contenuti più visitati.",
+        });
     } else {
       res.json(results);
     }
   });
 });
 
-// GET per Gli Accessi (ARES)
+// GET per Gli Accessi
 
-app.get('/api/access-logs/total', (req, res) => {
+app.get("/api/access-logs/total", (req, res) => {
   // Query SQL per selezionare tutti gli accessi alla WebApp
-  const sqlQuery = 'SELECT COUNT(*) AS total FROM lista_log WHERE FK_id_tipo_log = 1;';
+  const sqlQuery =
+    "SELECT COUNT(*) AS total FROM lista_log WHERE FK_id_tipo_log = 1;";
 
   db.query(sqlQuery, (error, results) => {
     if (error) {
       console.error(error);
-      res.status(500).json({ error: 'Si è verificato un errore durante il recupero del numero delle visite.' });
+      res
+        .status(500)
+        .json({
+          error:
+            "Si è verificato un errore durante il recupero del numero delle visite.",
+        });
     } else {
       console.log(results);
       res.json(results);
     }
   });
 });
-
-// // GET per Gli Accessi 2 (ARES)
-// app.get("/api/access-logs/total", async (req, res) => {
-//   try {
-//     const results = await db.query(
-//       "SELECT COUNT(*) AS total FROM lista_log WHERE FK_id_tipo_log = 1;",
-//     );
-//     res.json(results);
-//   } catch (error) {
-//     console.error("Error fetching LOGS:", error);
-//     res.status(500).json({ error: "Error fetching LOGS" });
-//   }
-// });
-
-
-
-
 
 // POST
 app.post("/api/register", async (req, res) => {
@@ -195,52 +186,26 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-// app.post('/api/newproduct', async (req, res) => {
-//   const { type, name, sizes, colors, genre, quantity, price, image } = req.body;
-
-//   try {
-//     // Insert the image URL into the images table
-//     await db.query('INSERT INTO images (image_url) VALUES (?)', [image]);
-
-//     // Retrieve the inserted image's id_image
-//     const imageQueryResult = await db.query('SELECT LAST_INSERT_ID() AS id_image');
-//     const idImage = imageQueryResult[0].id_image;
-//     console.log(sizes)
-//     console.log(typeof(sizes))
-//     console.log(colors)
-//     console.log(typeof(colors))
-//     // Insert the products into the products table
-//     for (const size of sizes) {
-//       for (const color of colors) {
-//         await db.query(
-//           'INSERT INTO products (id_type, name, size, color, genre, quantity, price, id_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-//           [type, name, size, color, genre, quantity, price, idImage]
-//         );
-//       }
-//     }
-
-//     res.json({ message: 'Product(s) inserted successfully' });
-//   } catch (error) {
-//     console.error('Error executing MySQL query:', error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
-
 // POST per l'aggiornamento dei log di accesso
-app.post('/api/access-logs', (req, res) => {
+app.post("/api/access-logs", (req, res) => {
   const { user_id } = req.body;
   const timestamp = new Date();
 
   const log = {
     FK_id_user: user_id,
     data_log: timestamp,
-    FK_id_tipo_log:1,
+    FK_id_tipo_log: 1,
   };
 
-  db.query('INSERT INTO lista_log SET ?', log, (error, results) => {
+  db.query("INSERT INTO lista_log SET ?", log, (error, results) => {
     if (error) {
       console.error(error);
-      res.status(500).json({ error: 'Si è verificato un errore nell\'aggiornamento dei log di accesso.' });
+      res
+        .status(500)
+        .json({
+          error:
+            "Si è verificato un errore nell'aggiornamento dei log di accesso.",
+        });
     } else {
       res.sendStatus(200);
     }
@@ -293,8 +258,8 @@ app.post("/api/addtocart", async (req, res) => {
   }
 });
 
-// Conteggio delle visualizzazioni (ARES)
-app.post('/api/content/:id/visit', (req, res) => {
+// Conteggio delle visualizzazioni
+app.post("/api/content/:id/visit", (req, res) => {
   const contentId = req.params.id;
 
   // Questo incrementa il conteggio delle visualizzazioni
@@ -303,7 +268,12 @@ app.post('/api/content/:id/visit', (req, res) => {
   db.query(sqlQuery, (error, results) => {
     if (error) {
       console.error(error);
-      res.status(500).json({ error: 'Si è verificato un errore durante in aggiornamento delle visite.' });
+      res
+        .status(500)
+        .json({
+          error:
+            "Si è verificato un errore durante in aggiornamento delle visite.",
+        });
     } else {
       res.sendStatus(200);
     }
@@ -359,7 +329,6 @@ app.post("/api/deliveries", async (req, res) => {
   }
 });
 
-
 // PUT
 app.put("/api/reset-password", async (req, res) => {
   const { email, newPassword } = req.body;
@@ -393,7 +362,6 @@ app.delete("/api/carts", (req, res) => {
     }
   });
 });
-
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
